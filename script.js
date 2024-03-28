@@ -27,7 +27,7 @@ function createOverlayButtons(currentVideoIndex) {
 
     videoSources.forEach((source, index) => {
         // Show buttons for the intro video or videos not currently playing
-        if (currentVideoIndex === 0 || index !== currentVideoIndex) {
+        if (currentVideoIndex === 0 || (index !== 0 && index !== currentVideoIndex)) {
             const button = document.createElement('button');
             button.textContent = source.label;
             button.classList.add('overlay-button');
@@ -135,8 +135,8 @@ videoContainer.addEventListener('click', handleVideoContainerClick);
 // Update captions every 100ms
 setInterval(displayCaptions, 100);
 
-// Create overlay buttons and display captions when the video ends
-video.addEventListener('ended', () => {
+// Create overlay buttons and display captions when the video changes
+video.addEventListener('loadedmetadata', () => {
     const currentVideoIndex = videoSources.findIndex(source => source.src === video.src);
     createOverlayButtons(currentVideoIndex);
     displayCaptions();
