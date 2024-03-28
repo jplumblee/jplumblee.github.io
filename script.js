@@ -14,7 +14,7 @@ const videoSources = [
 function createOverlayButtons() {
     // Clear existing buttons
     overlayContainer.innerHTML = '';
-    
+
     videoSources.forEach(source => {
         const button = document.createElement('button');
         button.textContent = source.label;
@@ -28,7 +28,25 @@ function createOverlayButtons() {
     });
 }
 
+// Function to handle video click
+function handleVideoClick() {
+    if (video.muted) {
+        video.muted = false; // Unmute the video
+    } else {
+        if (video.paused) {
+            video.play(); // Play the video
+        } else {
+            video.pause(); // Pause the video
+        }
+    }
+}
+
 // Initialize the video and create overlay buttons
 video.addEventListener('loadedmetadata', () => {
+    video.muted = true; // Set the video to muted initially
+    video.play(); // Autoplay the video on mute
     createOverlayButtons();
 });
+
+// Add click event listener to the video
+video.addEventListener('click', handleVideoClick);
