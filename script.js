@@ -12,6 +12,9 @@ const videoSources = [
 
 // Function to create and add overlay buttons
 function createOverlayButtons() {
+    // Clear existing buttons
+    overlayContainer.innerHTML = '';
+    
     videoSources.forEach(source => {
         const button = document.createElement('button');
         button.textContent = source.label;
@@ -19,7 +22,6 @@ function createOverlayButtons() {
         button.addEventListener('click', () => {
             video.src = source.src;
             video.play();
-            overlayContainer.innerHTML = ''; // Clear existing buttons
             createOverlayButtons(); // Re-create buttons for the new video
         });
         overlayContainer.appendChild(button);
