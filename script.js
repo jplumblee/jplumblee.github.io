@@ -1,5 +1,6 @@
-// Get references to the video element and overlay container
+// Get references to the video element and video container
 const video = document.getElementById('main-video');
+const videoContainer = document.querySelector('.video-container');
 const overlayContainer = document.querySelector('.overlay-container');
 
 // Define an array of video sources and corresponding button labels
@@ -38,6 +39,14 @@ function handleVideoClick() {
     }
 }
 
+// Function to handle video container click
+function handleVideoContainerClick(event) {
+    // Check if the click target is not the overlay buttons
+    if (!event.target.classList.contains('overlay-button')) {
+        handleVideoClick();
+    }
+}
+
 // Initialize the video and create overlay buttons
 video.addEventListener('loadedmetadata', () => {
     video.muted = true; // Set the video to muted initially
@@ -45,5 +54,5 @@ video.addEventListener('loadedmetadata', () => {
     createOverlayButtons();
 });
 
-// Add click event listener to the video
-video.addEventListener('click', handleVideoClick);
+// Add click event listener to the video container
+videoContainer.addEventListener('click', handleVideoContainerClick);
