@@ -22,7 +22,8 @@ function createOverlayButtons() {
         button.classList.add('overlay-button');
         button.addEventListener('click', () => {
             video.src = source.src;
-            video.play();
+            video.muted = false; // Unmute the video when changing segments
+            video.play(); // Autoplay the new segment unmuted
             createOverlayButtons(); // Re-create buttons for the new video
         });
         overlayContainer.appendChild(button);
@@ -31,11 +32,14 @@ function createOverlayButtons() {
 
 // Function to handle video click
 function handleVideoClick() {
-    if (video.paused) {
-        video.play();
-        video.muted = false; // Unmute the video when playing
+    if (video.muted) {
+        video.muted = false; // Unmute the video
     } else {
-        video.pause();
+        if (video.paused) {
+            video.play();
+        } else {
+            video.pause();
+        }
     }
 }
 
