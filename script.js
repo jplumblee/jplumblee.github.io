@@ -11,6 +11,9 @@ const videoSources = [
     { src: 'option3.mp4', label: 'Option 3' }
 ];
 
+// Variable to track if the initial video has been unmuted
+let isInitialVideoUnmuted = false;
+
 // Function to create and add overlay buttons
 function createOverlayButtons() {
     // Clear existing buttons
@@ -45,10 +48,15 @@ function loadVideo(videoSrc, shouldPlay) {
 
 // Function to handle video container click
 function handleVideoContainerClick() {
-    if (video.paused) {
-        video.play();
+    if (video.muted) {
+        video.muted = false;
+        isInitialVideoUnmuted = true;
     } else {
-        video.pause();
+        if (video.paused) {
+            video.play();
+        } else {
+            video.pause();
+        }
     }
 }
 
