@@ -23,17 +23,12 @@ function createOverlayButtons() {
         button.addEventListener('click', () => {
             video.src = source.src;
             video.load(); // Load the new video source
-            playVideoUnmuted(); // Play the new video unmuted
+            video.muted = false; // Unmute the video
+            video.play(); // Play the new video unmuted
             createOverlayButtons(); // Re-create buttons for the new video
         });
         overlayContainer.appendChild(button);
     });
-}
-
-// Function to play the video unmuted
-function playVideoUnmuted() {
-    video.muted = false;
-    video.play();
 }
 
 // Function to handle video container click
@@ -41,7 +36,8 @@ function handleVideoContainerClick(event) {
     // Check if the click target is not the overlay buttons
     if (!event.target.classList.contains('overlay-button')) {
         if (video.muted) {
-            playVideoUnmuted();
+            video.muted = false;
+            video.play();
         } else {
             if (video.paused) {
                 video.play();
