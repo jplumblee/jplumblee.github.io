@@ -27,15 +27,20 @@ function createOverlayButtons() {
     });
 }
 
-// Function to load and play the video
+// Function to load the video
 function loadVideo(videoSrc, shouldPlay) {
-    video.src = videoSrc;
-    video.muted = false;
-    video.load();
+    return new Promise((resolve) => {
+        video.src = videoSrc;
+        video.muted = false;
+        video.load();
 
-    if (shouldPlay) {
-        video.play();
-    }
+        video.addEventListener('loadedmetadata', () => {
+            resolve();
+            if (shouldPlay) {
+                video.play();
+            }
+        });
+    });
 }
 
 // Function to handle video container click
@@ -47,16 +52,16 @@ function handleVideoContainerClick() {
     }
 }
 
-// Function to initialize the video player
-function initializeVideoPlayer() {
-    loadVideo(videoSources[0].src, false);
-    createOverlayButtons();
+// Function to load the initial video
+async function loadInitialVideo() {
+    await loadVideo(videoSources[0].src, false);
     video.muted = true;
     video.play();
+    createOverlayButtons();
 }
 
-// Add event listener for the canplay event
-video.addEventListener('canplay', initializeVideoPlayer);
+// Load the initial video
+loadInitialVideo();
 
 // Add click event listener to the video container
 videoContainer.addEventListener('click', handleVideoContainerClick);
