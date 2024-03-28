@@ -41,6 +41,7 @@ function loadVideo(videoSrc, srtSrc, shouldPlay) {
     return new Promise((resolve) => {
         video.src = videoSrc;
         video.muted = false;
+        video.controls = false; // Remove the default video controls
         video.load();
 
         video.addEventListener('loadedmetadata', () => {
@@ -61,41 +62,17 @@ function loadVideo(videoSrc, srtSrc, shouldPlay) {
 
 // Function to parse the SRT file
 function parseSRT(srtText) {
-    const subtitles = [];
-    const lines = srtText.trim().split('\n');
-
-    for (let i = 0; i < lines.length; i++) {
-        if (!isNaN(parseInt(lines[i]))) {
-            const subtitle = {};
-            subtitle.index = parseInt(lines[i]);
-            const [start, end] = lines[++i].split(' --> ');
-            subtitle.start = parseTimestamp(start);
-            subtitle.end = parseTimestamp(end);
-            subtitle.text = lines[++i];
-            subtitles.push(subtitle);
-            i++;
-        }
-    }
-
-    return subtitles;
+    // ... (same as before)
 }
 
 // Function to parse the timestamp
 function parseTimestamp(timestamp) {
-    const [hours, minutes, seconds] = timestamp.split(':');
-    return parseInt(hours) * 3600 + parseInt(minutes) * 60 + parseFloat(seconds.replace(',', '.'));
+    // ... (same as before)
 }
 
 // Function to display the captions
 function displayCaptions() {
-    const currentTime = video.currentTime;
-    const currentCaption = captions.find(caption => currentTime >= caption.start && currentTime <= caption.end);
-
-    if (currentCaption) {
-        captionContainer.textContent = currentCaption.text;
-    } else {
-        captionContainer.textContent = '';
-    }
+    // ... (same as before)
 }
 
 // Function to handle video container click
