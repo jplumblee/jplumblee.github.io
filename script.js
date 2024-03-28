@@ -30,14 +30,11 @@ function createOverlayButtons() {
 
 // Function to handle video click
 function handleVideoClick() {
-    if (video.muted) {
-        video.muted = false; // Unmute the video
+    if (video.paused) {
+        video.play();
+        video.muted = false; // Unmute the video when playing
     } else {
-        if (video.paused) {
-            video.play(); // Play the video
-        } else {
-            video.pause(); // Pause the video
-        }
+        video.pause();
     }
 }
 
