@@ -72,16 +72,7 @@ function parseTimestamp(timestamp) {
 
 // Function to display the captions
 function displayCaptions() {
-    const currentTime = video.currentTime;
-    const currentCaption = captions.find(caption => currentTime >= caption.start && currentTime <= caption.end);
-
-    if (currentCaption) {
-        captionContainer.textContent = currentCaption.text;
-        captionContainer.style.display = 'block'; // Show the caption container
-    } else {
-        captionContainer.textContent = '';
-        captionContainer.style.display = 'none'; // Hide the caption container
-    }
+    // ... (same as before)
 }
 
 // Function to handle video container click
