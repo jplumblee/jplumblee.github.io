@@ -26,8 +26,8 @@ function createOverlayButtons(currentVideoIndex) {
     overlayContainer.innerHTML = '';
 
     videoSources.forEach((source, index) => {
-        // Skip the button for the currently playing video
-        if (index !== currentVideoIndex) {
+        // Skip the button for the intro video and the currently playing video
+        if (index !== 0 && index !== currentVideoIndex) {
             const button = document.createElement('button');
             button.textContent = source.label;
             button.classList.add('overlay-button');
@@ -123,7 +123,6 @@ async function loadInitialVideo() {
     await loadVideo(videoSources[0].src, videoSources[0].srt, false);
     video.muted = true;
     video.play();
-    createOverlayButtons(0); // Create buttons for the intro video
 }
 
 // Load the initial video
@@ -135,8 +134,8 @@ videoContainer.addEventListener('click', handleVideoContainerClick);
 // Update captions every 100ms
 setInterval(displayCaptions, 100);
 
-// Create overlay buttons and display captions when the video changes
-video.addEventListener('loadedmetadata', () => {
+// Create overlay buttons and display captions when the video ends
+video.addEventListener('ended', () => {
     const currentVideoIndex = videoSources.findIndex(source => source.src === video.src);
     createOverlayButtons(currentVideoIndex);
     displayCaptions();
