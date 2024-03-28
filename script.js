@@ -22,32 +22,33 @@ function createOverlayButtons() {
         button.classList.add('overlay-button');
         button.addEventListener('click', () => {
             video.src = source.src;
-            video.muted = false; // Unmute the video when changing segments
-            video.play(); // Autoplay the new segment unmuted
+            video.load(); // Load the new video source
+            playVideoUnmuted(); // Play the new video unmuted
             createOverlayButtons(); // Re-create buttons for the new video
         });
         overlayContainer.appendChild(button);
     });
 }
 
-// Function to handle video click
-function handleVideoClick() {
-    if (video.muted) {
-        video.muted = false; // Unmute the video
-    } else {
-        if (video.paused) {
-            video.play();
-        } else {
-            video.pause();
-        }
-    }
+// Function to play the video unmuted
+function playVideoUnmuted() {
+    video.muted = false;
+    video.play();
 }
 
 // Function to handle video container click
 function handleVideoContainerClick(event) {
     // Check if the click target is not the overlay buttons
     if (!event.target.classList.contains('overlay-button')) {
-        handleVideoClick();
+        if (video.muted) {
+            playVideoUnmuted();
+        } else {
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        }
     }
 }
 
