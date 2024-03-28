@@ -11,9 +11,6 @@ const videoSources = [
     { src: 'option3.mp4', label: 'Option 3' }
 ];
 
-// Variable to keep track of the initial video load
-let isInitialVideoLoaded = false;
-
 // Function to create and add overlay buttons
 function createOverlayButtons() {
     // Clear existing buttons
@@ -24,42 +21,42 @@ function createOverlayButtons() {
         button.textContent = source.label;
         button.classList.add('overlay-button');
         button.addEventListener('click', () => {
-            loadVideoUnmuted(source.src, index === 0);
+            loadVideo(source.src, index !== 0);
         });
         overlayContainer.appendChild(button);
     });
 }
 
-// Function to load and play the video unmuted
-function loadVideoUnmuted(videoSrc, shouldMute) {
+// Function to load and play the video
+function loadVideo(videoSrc, shouldPlay) {
     video.src = videoSrc;
+    video.muted = false;
     video.load();
-    video.muted = shouldMute;
-    video.addEventListener('loadeddata', () => {
+
+    if (shouldPlay) {
         video.play();
-    });
+    }
 }
 
 // Function to handle video container click
 function handleVideoContainerClick() {
-    if (video.muted) {
-        video.muted = false;
-    } else if (video.paused) {
+    if (video.paused) {
         video.play();
     } else {
         video.pause();
     }
 }
 
-// Function to handle initial video load
-function loadInitialVideo() {
-    isInitialVideoLoaded = true;
-    loadVideoUnmuted(videoSources[0].src, true);
+// Function to initialize the video player
+function initializeVideoPlayer() {
+    loadVideo(videoSources[0].src, false);
     createOverlayButtons();
+    video.muted = true;
+    video.play();
 }
 
-// Add event listener for the initial video load
-video.addEventListener('loadeddata', loadInitialVideo);
+// Add event listener for the canplay event
+video.addEventListener('canplay', initializeVideoPlayer);
 
 // Add click event listener to the video container
 videoContainer.addEventListener('click', handleVideoContainerClick);
