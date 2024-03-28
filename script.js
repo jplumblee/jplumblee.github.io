@@ -11,6 +11,9 @@ const videoSources = [
     { src: 'option3.mp4', label: 'Option 3' }
 ];
 
+// Variable to keep track of the initial video load
+let isInitialVideoLoaded = false;
+
 // Function to create and add overlay buttons
 function createOverlayButtons() {
     // Clear existing buttons
@@ -32,7 +35,9 @@ function loadVideoUnmuted(videoSrc, shouldMute) {
     video.src = videoSrc;
     video.load();
     video.muted = shouldMute;
-    video.play();
+    video.addEventListener('loadeddata', () => {
+        video.play();
+    });
 }
 
 // Function to handle video container click
@@ -46,11 +51,15 @@ function handleVideoContainerClick() {
     }
 }
 
-// Initialize the video and create overlay buttons
-video.addEventListener('loadedmetadata', () => {
-    loadVideoUnmuted(videoSources[0].src, true); // Load the initial video muted
+// Function to handle initial video load
+function loadInitialVideo() {
+    isInitialVideoLoaded = true;
+    loadVideoUnmuted(videoSources[0].src, true);
     createOverlayButtons();
-});
+}
+
+// Add event listener for the initial video load
+video.addEventListener('loadeddata', loadInitialVideo);
 
 // Add click event listener to the video container
 videoContainer.addEventListener('click', handleVideoContainerClick);
