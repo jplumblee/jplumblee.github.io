@@ -21,7 +21,7 @@ let captions = [];
 let isInitialVideoUnmuted = false;
 
 // Function to create and add overlay buttons
-function createOverlayButtons(currentVideoIndex) {
+function createOverlayButtons() {
     // Clear existing buttons
     overlayContainer.innerHTML = '';
 
@@ -30,18 +30,13 @@ function createOverlayButtons(currentVideoIndex) {
             const button = document.createElement('button');
             button.textContent = source.label;
             button.classList.add('overlay-button');
+            button.setAttribute('data-video', source.src);
             button.addEventListener('click', () => {
                 loadVideo(source.src, source.srt, true);
             });
             overlayContainer.appendChild(button);
         }
     });
-
-    // Hide the button for the currently playing video
-    const currentButton = overlayContainer.children[currentVideoIndex - 1];
-    if (currentButton) {
-        currentButton.style.display = 'none';
-    }
 }
 
 // Function to load the video and captions
@@ -128,7 +123,7 @@ async function loadInitialVideo() {
     await loadVideo(videoSources[0].src, videoSources[0].srt, false);
     video.muted = true;
     video.play();
-    createOverlayButtons(0); // Create buttons for the intro video
+    createOverlayButtons(); // Create buttons for the intro video
 }
 
 // Load the initial video
@@ -140,9 +135,16 @@ videoContainer.addEventListener('click', handleVideoContainerClick);
 // Update captions every 100ms
 setInterval(displayCaptions, 100);
 
-// Create overlay buttons and display captions when the video changes
+// Show/hide buttons based on the currently playing video
 video.addEventListener('loadedmetadata', () => {
-    const currentVideoIndex = videoSources.findIndex(source => source.src === video.src);
-    createOverlayButtons(currentVideoIndex);
-    displayCaptions();
+    const currentVideoSrc = video.getAttribute('src');
+    const buttons = overlayContainer.querySelectorAll('.overlay-button');
+    buttons.forEach(button => {
+        const buttonVideoSrc = button.getAttribute('data-video');
+        if (buttonVideoSrc === currentVideoSrc) {
+            button.classList.add('hidden');
+        } else {
+            button.classList.remove('hidden');
+        }
+    });
 });
