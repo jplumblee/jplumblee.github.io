@@ -26,8 +26,7 @@ function createOverlayButtons(currentVideoIndex) {
     overlayContainer.innerHTML = '';
 
     videoSources.forEach((source, index) => {
-        // Show buttons for the intro video or videos not currently playing
-        if (currentVideoIndex === 0 || (index !== 0 && index !== currentVideoIndex)) {
+        if (index !== 0) {
             const button = document.createElement('button');
             button.textContent = source.label;
             button.classList.add('overlay-button');
@@ -37,6 +36,12 @@ function createOverlayButtons(currentVideoIndex) {
             overlayContainer.appendChild(button);
         }
     });
+
+    // Hide the button for the currently playing video
+    const currentButton = overlayContainer.children[currentVideoIndex - 1];
+    if (currentButton) {
+        currentButton.style.display = 'none';
+    }
 }
 
 // Function to load the video and captions
