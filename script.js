@@ -16,42 +16,39 @@ function createOverlayButtons() {
     // Clear existing buttons
     overlayContainer.innerHTML = '';
 
-    videoSources.forEach(source => {
+    videoSources.forEach((source, index) => {
         const button = document.createElement('button');
         button.textContent = source.label;
         button.classList.add('overlay-button');
         button.addEventListener('click', () => {
-            video.src = source.src;
-            video.load(); // Load the new video source
-            video.muted = false; // Unmute the video
-            video.play(); // Play the new video unmuted
-            createOverlayButtons(); // Re-create buttons for the new video
+            loadVideoUnmuted(source.src, index === 0);
         });
         overlayContainer.appendChild(button);
     });
 }
 
+// Function to load and play the video unmuted
+function loadVideoUnmuted(videoSrc, shouldMute) {
+    video.src = videoSrc;
+    video.load();
+    video.muted = shouldMute;
+    video.play();
+}
+
 // Function to handle video container click
-function handleVideoContainerClick(event) {
-    // Check if the click target is not the overlay buttons
-    if (!event.target.classList.contains('overlay-button')) {
-        if (video.muted) {
-            video.muted = false;
-            video.play();
-        } else {
-            if (video.paused) {
-                video.play();
-            } else {
-                video.pause();
-            }
-        }
+function handleVideoContainerClick() {
+    if (video.muted) {
+        video.muted = false;
+    } else if (video.paused) {
+        video.play();
+    } else {
+        video.pause();
     }
 }
 
 // Initialize the video and create overlay buttons
 video.addEventListener('loadedmetadata', () => {
-    video.muted = true; // Set the video to muted initially
-    video.play(); // Autoplay the video on mute
+    loadVideoUnmuted(videoSources[0].src, true); // Load the initial video muted
     createOverlayButtons();
 });
 
