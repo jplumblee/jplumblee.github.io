@@ -26,8 +26,8 @@ function createOverlayButtons(currentVideoIndex) {
     overlayContainer.innerHTML = '';
 
     videoSources.forEach((source, index) => {
-        // Skip the button for the intro video and the currently playing video
-        if (index !== 0 && index !== currentVideoIndex) {
+        // Show buttons for the intro video or videos not currently playing
+        if (currentVideoIndex === 0 || index !== currentVideoIndex) {
             const button = document.createElement('button');
             button.textContent = source.label;
             button.classList.add('overlay-button');
@@ -123,6 +123,7 @@ async function loadInitialVideo() {
     await loadVideo(videoSources[0].src, videoSources[0].srt, false);
     video.muted = true;
     video.play();
+    createOverlayButtons(0); // Create buttons for the intro video
 }
 
 // Load the initial video
