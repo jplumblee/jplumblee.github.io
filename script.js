@@ -62,17 +62,43 @@ function loadVideo(videoSrc, srtSrc, shouldPlay) {
 
 // Function to parse the SRT file
 function parseSRT(srtText) {
-    // ... (same as before)
+    const subtitles = [];
+    const lines = srtText.trim().split('\n');
+
+    for (let i = 0; i < lines.length; i++) {
+        if (!isNaN(parseInt(lines[i]))) {
+            const subtitle = {};
+            subtitle.index = parseInt(lines[i]);
+            const [start, end] = lines[++i].split(' --> ');
+            subtitle.start = parseTimestamp(start);
+            subtitle.end = parseTimestamp(end);
+            subtitle.text = lines[++i];
+            subtitles.push(subtitle);
+            i++;
+        }
+    }
+
+    return subtitles;
 }
 
 // Function to parse the timestamp
 function parseTimestamp(timestamp) {
-    // ... (same as before)
+    const [hours, minutes, seconds] = timestamp.split(':');
+    return parseInt(hours) * 3600 + parseInt(minutes) * 60 + parseFloat(seconds.replace(',', '.'));
 }
 
 // Function to display the captions
 function displayCaptions() {
-    // ... (same as before)
+    const currentTime = video.currentTime;
+    const currentCaption = captions.find(caption => currentTime >= caption.start && currentTime <= caption.end);
+
+    if (currentCaption) {
+        captionContainer.textContent = currentCaption.text;
+        captionContainer.style.display = 'block'; // Show the caption container
+    } else {
+        captionContainer.textContent = '';
+        captionContainer.style.display = 'none'; // Hide the caption container
+    }
 }
 
 // Function to handle video container click
