@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Video</title>
+    <link rel="stylesheet" href="mobile.css">
+    <link href="https://fonts.googleapis.com/css?family=Archivo" rel="stylesheet">
+</head>
+<body>
+    <div class="video-container">
+        <div class="video-wrapper">
+            <video id="main-video" playsinline>
+                <source src="intro.mp4" type="video/mp4">
+            </video>
+            <div id="wipe"></div>
+            <div class="overlay-container">
+                <!-- Overlay buttons will be added here dynamically -->
+            </div>
+            <a href="https://www.humanry.com/" target="_blank"><div class="logo"></div></a>
+            <div class="loading-screen">
+                <div class="loading-logo"></div>
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+    <script src="mobile.js"></script>
+</body>
+</html>
