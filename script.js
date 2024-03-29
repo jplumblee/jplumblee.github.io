@@ -40,27 +40,50 @@ function createOverlayButtons() {
     });
 }
 
+// Function to preload videos
+function preloadVideos() {
+    const preloadContainer = document.getElementById('preload-container');
+
+    videoSources.forEach((source, index) => {
+        if (index !== 0) {
+            const preloadVideo = document.createElement('video');
+            preloadVideo.setAttribute('src', source.src);
+            preloadVideo.setAttribute('preload', 'auto');
+            preloadVideo.style.display = 'none';
+            preloadContainer.appendChild(preloadVideo);
+        }
+    });
+}
+
 // Function to load the video and captions
 function loadVideo(videoSrc, srtSrc, shouldPlay) {
     return new Promise((resolve) => {
-        video.src = videoSrc;
-        video.muted = false;
-        video.controls = false; // Remove the default video controls
-        video.load();
+        // Apply blur transition
+        videoContainer.classList.add('blur');
 
-        video.addEventListener('loadedmetadata', () => {
-            resolve();
-            if (shouldPlay) {
-                video.play();
-            }
-            // Load the captions
-            fetch(srtSrc)
-                .then(response => response.text())
-                .then(data => {
-                    captions = parseSRT(data);
-                    displayCaptions(); // Display captions immediately after loading
-                });
-        });
+        // Delay the video load to allow the blur transition to take effect
+        setTimeout(() => {
+            video.src = videoSrc;
+            video.muted = false;
+            video.controls = false; // Remove the default video controls
+            video.load();
+
+            video.addEventListener('loadedmetadata', () => {
+                resolve();
+                if (shouldPlay) {
+                    // Remove blur transition and play the video
+                    videoContainer.classList.remove('blur');
+                    video.play();
+                }
+                // Load the captions
+                fetch(srtSrc)
+                    .then(response => response.text())
+                    .then(data => {
+                        captions = parseSRT(data);
+                        displayCaptions(); // Display captions immediately after loading
+                    });
+            });
+        }, 500); // Adjust the delay as needed
     });
 }
 
@@ -152,3 +175,6 @@ video.addEventListener('loadedmetadata', () => {
         }
     });
 });
+
+// Preload videos
+preloadVideos();
