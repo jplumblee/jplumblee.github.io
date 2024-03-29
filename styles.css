@@ -18,9 +18,10 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
     width: auto;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
 }
 
 #wipe {
@@ -141,14 +142,8 @@ body {
 
 @media screen and (max-width: 600px) {
     .video-container {
-        width: 100%;
-        height: auto;
-        padding-top: 100%;
-    }
-
-    .video-container video {
-        width: 100%;
-        height: auto;
+        width: 100vw;
+        height: 100vw;
     }
 
     .overlay-button {
