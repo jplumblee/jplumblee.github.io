@@ -1,10 +1,11 @@
-// Get references to the video element and video container
+// Get references to the video element, video container, and loading screen
 const video = document.getElementById('main-video');
 const videoContainer = document.querySelector('.video-container');
 const overlayContainer = document.querySelector('.overlay-container');
 const captionContainer = document.createElement('div');
 captionContainer.classList.add('caption-container');
 videoContainer.appendChild(captionContainer);
+const loadingScreen = document.querySelector('.loading-screen');
 
 // Define an array of video sources and corresponding button labels
 const videoSources = [
@@ -121,10 +122,12 @@ function handleVideoContainerClick() {
 
 // Function to load the initial video
 async function loadInitialVideo() {
+    loadingScreen.style.display = 'flex'; // Show the loading screen
     await loadVideo(videoSources[0].src, videoSources[0].srt, false);
     video.muted = true;
     video.play();
     createOverlayButtons(); // Create buttons for the intro video
+    loadingScreen.style.display = 'none'; // Hide the loading screen
 }
 
 // Load the initial video
