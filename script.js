@@ -1,17 +1,19 @@
-// Get references to the video element and video container
+// Get references to the video element, video container, and loading screen
 const video = document.getElementById('main-video');
 const videoContainer = document.querySelector('.video-container');
 const overlayContainer = document.querySelector('.overlay-container');
 const captionContainer = document.createElement('div');
 captionContainer.classList.add('caption-container');
 videoContainer.appendChild(captionContainer);
+const loadingScreen = document.querySelector('.loading-screen');
+const wipe = document.getElementById('wipe');
 
 // Define an array of video sources and corresponding button labels
 const videoSources = [
     { src: 'intro.mp4', label: 'Introduction', srt: 'introcaptions.srt' },
-    { src: 'option1.mp4', label: 'Option 1', srt: 'option1captions.srt' },
-    { src: 'option2.mp4', label: 'Option 2', srt: 'option2captions.srt' },
-    { src: 'option3.mp4', label: 'Option 3', srt: 'option3captions.srt' }
+    { src: 'option1.mp4', label: 'Simplicity', srt: 'option1captions.srt' },
+    { src: 'option2.mp4', label: 'Next Steps', srt: 'option2captions.srt' },
+    { src: 'option3.mp4', label: 'Big Picture', srt: 'option3captions.srt' }
 ];
 
 // Variable to store the parsed captions
@@ -39,27 +41,49 @@ function createOverlayButtons() {
     });
 }
 
+// Function to preload videos
+function preloadVideos() {
+    videoSources.forEach((source, index) => {
+        if (index !== 0) {
+            const preloadVideo = document.createElement('video');
+            preloadVideo.setAttribute('src', source.src);
+            preloadVideo.setAttribute('preload', 'auto');
+            preloadVideo.style.display = 'none';
+            document.body.appendChild(preloadVideo);
+        }
+    });
+}
+
 // Function to load the video and captions
 function loadVideo(videoSrc, srtSrc, shouldPlay) {
     return new Promise((resolve) => {
-        video.src = videoSrc;
-        video.muted = false;
-        video.controls = false; // Remove the default video controls
-        video.load();
+        // Animate the wipe transition
+        wipe.style.height = '100%';
+        setTimeout(() => {
+            video.src = videoSrc;
+            video.muted = false;
+            video.controls = false; // Remove the default video controls
+            video.load();
 
-        video.addEventListener('loadedmetadata', () => {
-            resolve();
-            if (shouldPlay) {
-                video.play();
-            }
-            // Load the captions
-            fetch(srtSrc)
-                .then(response => response.text())
-                .then(data => {
-                    captions = parseSRT(data);
-                    displayCaptions(); // Display captions immediately after loading
-                });
-        });
+            video.addEventListener('loadedmetadata', () => {
+                resolve();
+                if (shouldPlay) {
+                    video.play();
+                }
+                // Load the captions
+                fetch(srtSrc)
+                    .then(response => response.text())
+                    .then(data => {
+                        captions = parseSRT(data);
+                        displayCaptions(); // Display captions immediately after loading
+                    });
+            });
+
+            // Reset the wipe transition
+            setTimeout(() => {
+                wipe.style.height = '0';
+            }, 500); // Adjust the delay to match the transition duration in CSS
+        }, 500); // Adjust the delay to match the transition duration in CSS
     });
 }
 
@@ -104,10 +128,11 @@ function displayCaptions() {
     }
 }
 
-// Function to handle video container click
-function handleVideoContainerClick() {
+// Function to handle video container click and touch events
+function handleVideoContainerInteraction(event) {
     if (video.muted) {
         video.muted = false;
+        video.currentTime = 0; // Restart the video from the beginning
         isInitialVideoUnmuted = true;
     } else {
         if (video.paused) {
@@ -120,17 +145,20 @@ function handleVideoContainerClick() {
 
 // Function to load the initial video
 async function loadInitialVideo() {
+    loadingScreen.style.display = 'flex'; // Show the loading screen
     await loadVideo(videoSources[0].src, videoSources[0].srt, false);
     video.muted = true;
     video.play();
     createOverlayButtons(); // Create buttons for the intro video
+    loadingScreen.style.display = 'none'; // Hide the loading screen
 }
 
 // Load the initial video
 loadInitialVideo();
 
-// Add click event listener to the video container
-videoContainer.addEventListener('click', handleVideoContainerClick);
+// Add click and touch event listeners to the video container
+videoContainer.addEventListener('click', handleVideoContainerInteraction);
+videoContainer.addEventListener('touchstart', handleVideoContainerInteraction);
 
 // Update captions every 100ms
 setInterval(displayCaptions, 100);
@@ -148,3 +176,6 @@ video.addEventListener('loadedmetadata', () => {
         }
     });
 });
+
+// Preload videos
+preloadVideos();
