@@ -1,10 +1,10 @@
-// Get references to the video element, video wrapper, and loading screen
+// Get references to the video element, video container, and loading screen
 const video = document.getElementById('main-video');
-const videoWrapper = document.querySelector('.video-wrapper');
+const videoContainer = document.querySelector('.video-container');
 const overlayContainer = document.querySelector('.overlay-container');
 const captionContainer = document.createElement('div');
 captionContainer.classList.add('caption-container');
-overlayContainer.appendChild(captionContainer);
+videoContainer.appendChild(captionContainer);
 const loadingScreen = document.querySelector('.loading-screen');
 const wipe = document.getElementById('wipe');
 
@@ -26,7 +26,6 @@ let isInitialVideoUnmuted = false;
 function createOverlayButtons() {
     // Clear existing buttons
     overlayContainer.innerHTML = '';
-    overlayContainer.appendChild(captionContainer);
 
     videoSources.forEach((source, index) => {
         if (index !== 0) {
@@ -129,8 +128,8 @@ function displayCaptions() {
     }
 }
 
-// Function to handle video wrapper click and touch events
-function handleVideoWrapperInteraction(event) {
+// Function to handle video container click
+function handleVideoContainerClick() {
     if (video.muted) {
         video.muted = false;
         video.currentTime = 0; // Restart the video from the beginning
@@ -157,9 +156,8 @@ async function loadInitialVideo() {
 // Load the initial video
 loadInitialVideo();
 
-// Add click and touch event listeners to the video wrapper
-videoWrapper.addEventListener('click', handleVideoWrapperInteraction);
-videoWrapper.addEventListener('touchstart', handleVideoWrapperInteraction);
+// Add click event listener to the video container
+videoContainer.addEventListener('click', handleVideoContainerClick);
 
 // Update captions every 100ms
 setInterval(displayCaptions, 100);
