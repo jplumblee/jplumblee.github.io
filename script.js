@@ -9,9 +9,9 @@ videoContainer.appendChild(captionContainer);
 // Define an array of video sources and corresponding button labels
 const videoSources = [
     { src: 'intro.mp4', label: 'Introduction', srt: 'introcaptions.srt' },
-    { src: 'option1.mp4', label: 'Option 1', srt: 'option1captions.srt' },
-    { src: 'option2.mp4', label: 'Option 2', srt: 'option2captions.srt' },
-    { src: 'option3.mp4', label: 'Option 3', srt: 'option3captions.srt' }
+    { src: 'option1.mp4', label: 'Simplicity', srt: 'option1captions.srt' },
+    { src: 'option2.mp4', label: 'Next Steps', srt: 'option2captions.srt' },
+    { src: 'option3.mp4', label: 'Big Picture', srt: 'option3captions.srt' }
 ];
 
 // Variable to store the parsed captions
@@ -108,6 +108,7 @@ function displayCaptions() {
 function handleVideoContainerClick() {
     if (video.muted) {
         video.muted = false;
+        video.currentTime = 0; // Restart the video from the beginning
         isInitialVideoUnmuted = true;
     } else {
         if (video.paused) {

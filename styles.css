@@ -72,4 +72,5 @@
     height: 40px;
     background-image: url('icon1.png');
     background-size: cover;
+    cursor: pointer;
 }
