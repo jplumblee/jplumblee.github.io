@@ -1,5 +1,6 @@
-// Get references to the video element, video container, and loading screen
-const video = document.getElementById('main-video');
+// Get references to the video elements, video container, and loading screen
+const currentVideo = document.getElementById('current-video');
+const nextVideo = document.getElementById('next-video');
 const videoContainer = document.querySelector('.video-container');
 const overlayContainer = document.querySelector('.overlay-container');
 const captionContainer = document.createElement('div');
@@ -42,15 +43,13 @@ function createOverlayButtons() {
 
 // Function to preload videos
 function preloadVideos() {
-    const preloadContainer = document.getElementById('preload-container');
-
     videoSources.forEach((source, index) => {
         if (index !== 0) {
             const preloadVideo = document.createElement('video');
             preloadVideo.setAttribute('src', source.src);
             preloadVideo.setAttribute('preload', 'auto');
             preloadVideo.style.display = 'none';
-            preloadContainer.appendChild(preloadVideo);
+            document.body.appendChild(preloadVideo);
         }
     });
 }
@@ -58,49 +57,32 @@ function preloadVideos() {
 // Function to load the video and captions
 function loadVideo(videoSrc, srtSrc, shouldPlay) {
     return new Promise((resolve) => {
-        const preloadVideo = document.querySelector(`video[src="${videoSrc}"]`);
+        nextVideo.src = videoSrc;
+        nextVideo.muted = false;
+        nextVideo.controls = false; // Remove the default video controls
+        nextVideo.load();
 
-        if (preloadVideo) {
-            // If the video is already preloaded, use it as the source
-            video.src = preloadVideo.src;
-            video.muted = false;
-            video.controls = false; // Remove the default video controls
-            video.load();
-
-            video.addEventListener('loadedmetadata', () => {
-                resolve();
-                if (shouldPlay) {
-                    video.play();
-                }
-                // Load the captions
-                fetch(srtSrc)
-                    .then(response => response.text())
-                    .then(data => {
-                        captions = parseSRT(data);
-                        displayCaptions(); // Display captions immediately after loading
-                    });
-            });
-        } else {
-            // If the video is not preloaded, load it normally
-            video.src = videoSrc;
-            video.muted = false;
-            video.controls = false; // Remove the default video controls
-            video.load();
-
-            video.addEventListener('loadedmetadata', () => {
-                resolve();
-                if (shouldPlay) {
-                    video.play();
-                }
-                // Load the captions
-                fetch(srtSrc)
-                    .then(response => response.text())
-                    .then(data => {
-                        captions = parseSRT(data);
-                        displayCaptions(); // Display captions immediately after loading
-                    });
-            });
-        }
+        nextVideo.addEventListener('loadedmetadata', () => {
+            resolve();
+            if (shouldPlay) {
+                currentVideo.classList.remove('active');
+                nextVideo.classList.add('active');
+                setTimeout(() => {
+                    currentVideo.src = nextVideo.src;
+                    currentVideo.muted = false;
+                    currentVideo.controls = false;
+                    currentVideo.play();
+                    nextVideo.classList.remove('active');
+                }, 500); // Adjust the delay to match the transition duration in CSS
+            }
+            // Load the captions
+            fetch(srtSrc)
+                .then(response => response.text())
+                .then(data => {
+                    captions = parseSRT(data);
+                    displayCaptions(); // Display captions immediately after loading
+                });
+        });
     });
 }
 
@@ -133,7 +115,7 @@ function parseTimestamp(timestamp) {
 
 // Function to display the captions
 function displayCaptions() {
-    const currentTime = video.currentTime;
+    const currentTime = currentVideo.currentTime;
     const currentCaption = captions.find(caption => currentTime >= caption.start && currentTime <= caption.end);
 
     if (currentCaption) {
@@ -147,15 +129,15 @@ function displayCaptions() {
 
 // Function to handle video container click
 function handleVideoContainerClick() {
-    if (video.muted) {
-        video.muted = false;
-        video.currentTime = 0; // Restart the video from the beginning
+    if (currentVideo.muted) {
+        currentVideo.muted = false;
+        currentVideo.currentTime = 0; // Restart the video from the beginning
         isInitialVideoUnmuted = true;
     } else {
-        if (video.paused) {
-            video.play();
+        if (currentVideo.paused) {
+            currentVideo.play();
         } else {
-            video.pause();
+            currentVideo.pause();
         }
     }
 }
@@ -164,8 +146,9 @@ function handleVideoContainerClick() {
 async function loadInitialVideo() {
     loadingScreen.style.display = 'flex'; // Show the loading screen
     await loadVideo(videoSources[0].src, videoSources[0].srt, false);
-    video.muted = true;
-    video.play();
+    currentVideo.muted = true;
+    currentVideo.classList.add('active');
+    currentVideo.play();
     createOverlayButtons(); // Create buttons for the intro video
     loadingScreen.style.display = 'none'; // Hide the loading screen
 }
@@ -180,8 +163,8 @@ videoContainer.addEventListener('click', handleVideoContainerClick);
 setInterval(displayCaptions, 100);
 
 // Show/hide buttons based on the currently playing video
-video.addEventListener('loadedmetadata', () => {
-    const currentVideoSrc = video.getAttribute('src');
+currentVideo.addEventListener('loadedmetadata', () => {
+    const currentVideoSrc = currentVideo.getAttribute('src');
     const buttons = overlayContainer.querySelectorAll('.overlay-button');
     buttons.forEach(button => {
         const buttonVideoSrc = button.getAttribute('data-video');
