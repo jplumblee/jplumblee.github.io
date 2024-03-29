@@ -1,6 +1,6 @@
-// Get references to the video element, video wrapper, and loading screen
+// Get references to the video element, video container, and loading screen
 const video = document.getElementById('main-video');
-const videoWrapper = document.querySelector('.video-wrapper');
+const videoContainer = document.querySelector('.video-container');
 const overlayContainer = document.querySelector('.overlay-container');
 const captionContainer = document.createElement('div');
 captionContainer.classList.add('caption-container');
@@ -129,8 +129,10 @@ function displayCaptions() {
     }
 }
 
-// Function to handle video wrapper click and touch events
-function handleVideoWrapperInteraction(event) {
+// Function to handle video container click and touch events
+function handleVideoContainerInteraction(event) {
+    event.preventDefault(); // Prevent default touch behavior
+
     if (video.muted) {
         video.muted = false;
         video.currentTime = 0; // Restart the video from the beginning
@@ -157,9 +159,9 @@ async function loadInitialVideo() {
 // Load the initial video
 loadInitialVideo();
 
-// Add click and touch event listeners to the video wrapper
-videoWrapper.addEventListener('click', handleVideoWrapperInteraction);
-videoWrapper.addEventListener('touchstart', handleVideoWrapperInteraction);
+// Add click and touch event listeners to the video container
+videoContainer.addEventListener('click', handleVideoContainerInteraction);
+videoContainer.addEventListener('touchstart', handleVideoContainerInteraction);
 
 // Update captions every 100ms
 setInterval(displayCaptions, 100);
