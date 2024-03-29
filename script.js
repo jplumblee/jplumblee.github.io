@@ -58,12 +58,11 @@ function preloadVideos() {
 // Function to load the video and captions
 function loadVideo(videoSrc, srtSrc, shouldPlay) {
     return new Promise((resolve) => {
-        // Apply blur transition
-        videoContainer.classList.add('blur');
+        const preloadVideo = document.querySelector(`video[src="${videoSrc}"]`);
 
-        // Delay the video load to allow the blur transition to take effect
-        setTimeout(() => {
-            video.src = videoSrc;
+        if (preloadVideo) {
+            // If the video is already preloaded, use it as the source
+            video.src = preloadVideo.src;
             video.muted = false;
             video.controls = false; // Remove the default video controls
             video.load();
@@ -71,8 +70,6 @@ function loadVideo(videoSrc, srtSrc, shouldPlay) {
             video.addEventListener('loadedmetadata', () => {
                 resolve();
                 if (shouldPlay) {
-                    // Remove blur transition and play the video
-                    videoContainer.classList.remove('blur');
                     video.play();
                 }
                 // Load the captions
@@ -83,7 +80,27 @@ function loadVideo(videoSrc, srtSrc, shouldPlay) {
                         displayCaptions(); // Display captions immediately after loading
                     });
             });
-        }, 500); // Adjust the delay as needed
+        } else {
+            // If the video is not preloaded, load it normally
+            video.src = videoSrc;
+            video.muted = false;
+            video.controls = false; // Remove the default video controls
+            video.load();
+
+            video.addEventListener('loadedmetadata', () => {
+                resolve();
+                if (shouldPlay) {
+                    video.play();
+                }
+                // Load the captions
+                fetch(srtSrc)
+                    .then(response => response.text())
+                    .then(data => {
+                        captions = parseSRT(data);
+                        displayCaptions(); // Display captions immediately after loading
+                    });
+            });
+        }
     });
 }
 
