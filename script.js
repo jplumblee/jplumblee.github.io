@@ -1,12 +1,12 @@
-// Get references to the video elements, video container, and loading screen
-const currentVideo = document.getElementById('current-video');
-const nextVideo = document.getElementById('next-video');
+// Get references to the video element, video container, and loading screen
+const video = document.getElementById('main-video');
 const videoContainer = document.querySelector('.video-container');
 const overlayContainer = document.querySelector('.overlay-container');
 const captionContainer = document.createElement('div');
 captionContainer.classList.add('caption-container');
 videoContainer.appendChild(captionContainer);
 const loadingScreen = document.querySelector('.loading-screen');
+const wipe = document.getElementById('wipe');
 
 // Define an array of video sources and corresponding button labels
 const videoSources = [
@@ -57,32 +57,33 @@ function preloadVideos() {
 // Function to load the video and captions
 function loadVideo(videoSrc, srtSrc, shouldPlay) {
     return new Promise((resolve) => {
-        nextVideo.src = videoSrc;
-        nextVideo.muted = false;
-        nextVideo.controls = false; // Remove the default video controls
-        nextVideo.load();
+        // Animate the wipe transition
+        wipe.style.height = '100%';
+        setTimeout(() => {
+            video.src = videoSrc;
+            video.muted = false;
+            video.controls = false; // Remove the default video controls
+            video.load();
 
-        nextVideo.addEventListener('loadedmetadata', () => {
-            resolve();
-            if (shouldPlay) {
-                currentVideo.classList.remove('active');
-                nextVideo.classList.add('active');
-                setTimeout(() => {
-                    currentVideo.src = nextVideo.src;
-                    currentVideo.muted = false;
-                    currentVideo.controls = false;
-                    currentVideo.play();
-                    nextVideo.classList.remove('active');
-                }, 500); // Adjust the delay to match the transition duration in CSS
-            }
-            // Load the captions
-            fetch(srtSrc)
-                .then(response => response.text())
-                .then(data => {
-                    captions = parseSRT(data);
-                    displayCaptions(); // Display captions immediately after loading
-                });
-        });
+            video.addEventListener('loadedmetadata', () => {
+                resolve();
+                if (shouldPlay) {
+                    video.play();
+                }
+                // Load the captions
+                fetch(srtSrc)
+                    .then(response => response.text())
+                    .then(data => {
+                        captions = parseSRT(data);
+                        displayCaptions(); // Display captions immediately after loading
+                    });
+            });
+
+            // Reset the wipe transition
+            setTimeout(() => {
+                wipe.style.height = '0';
+            }, 500); // Adjust the delay to match the transition duration in CSS
+        }, 500); // Adjust the delay to match the transition duration in CSS
     });
 }
 
@@ -115,7 +116,7 @@ function parseTimestamp(timestamp) {
 
 // Function to display the captions
 function displayCaptions() {
-    const currentTime = currentVideo.currentTime;
+    const currentTime = video.currentTime;
     const currentCaption = captions.find(caption => currentTime >= caption.start && currentTime <= caption.end);
 
     if (currentCaption) {
@@ -129,15 +130,15 @@ function displayCaptions() {
 
 // Function to handle video container click
 function handleVideoContainerClick() {
-    if (currentVideo.muted) {
-        currentVideo.muted = false;
-        currentVideo.currentTime = 0; // Restart the video from the beginning
+    if (video.muted) {
+        video.muted = false;
+        video.currentTime = 0; // Restart the video from the beginning
         isInitialVideoUnmuted = true;
     } else {
-        if (currentVideo.paused) {
-            currentVideo.play();
+        if (video.paused) {
+            video.play();
         } else {
-            currentVideo.pause();
+            video.pause();
         }
     }
 }
@@ -146,9 +147,8 @@ function handleVideoContainerClick() {
 async function loadInitialVideo() {
     loadingScreen.style.display = 'flex'; // Show the loading screen
     await loadVideo(videoSources[0].src, videoSources[0].srt, false);
-    currentVideo.muted = true;
-    currentVideo.classList.add('active');
-    currentVideo.play();
+    video.muted = true;
+    video.play();
     createOverlayButtons(); // Create buttons for the intro video
     loadingScreen.style.display = 'none'; // Hide the loading screen
 }
@@ -163,8 +163,8 @@ videoContainer.addEventListener('click', handleVideoContainerClick);
 setInterval(displayCaptions, 100);
 
 // Show/hide buttons based on the currently playing video
-currentVideo.addEventListener('loadedmetadata', () => {
-    const currentVideoSrc = currentVideo.getAttribute('src');
+video.addEventListener('loadedmetadata', () => {
+    const currentVideoSrc = video.getAttribute('src');
     const buttons = overlayContainer.querySelectorAll('.overlay-button');
     buttons.forEach(button => {
         const buttonVideoSrc = button.getAttribute('data-video');
