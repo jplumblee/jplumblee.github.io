@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Interactive Video Editor</title>
+  <link rel="stylesheet" href="editor-styles.css">
+</head>
+<body>
+  <div class="editor-container">
+    <h1>Interactive Video Editor</h1>
+    <div class="editor-section">
+      <h2>Frame Attributes</h2>
+      <!-- Frame shape options -->
+      <label for="frame-shape">Frame Shape:</label>
+      <select id="frame-shape">
+        <option value="square">Square</option>
+        <option value="portrait">Portrait</option>
+        <option value="landscape">Landscape</option>
+      </select>
+      <!-- Frame border options -->
+      <label for="frame-border">Frame Border:</label>
+      <input type="checkbox" id="frame-border">
+      <label for="frame-border-color">Border Color:</label>
+      <input type="color" id="frame-border-color">
+      <label for="frame-border-weight">Border Weight:</label>
+      <input type="number" id="frame-border-weight" min="0" step="1">
+      <!-- Frame radius options -->
+      <label for="frame-radius">Border Radius:</label>
+      <input type="number" id="frame-radius" min="0" step="1">
+    </div>
+    <div class="editor-section">
+      <h2>Button Attributes</h2>
+      <!-- Button spacing options -->
+      <label for="button-spacing">Button Spacing:</label>
+      <input type="number" id="button-spacing" min="0" step="1">
+      <!-- Button stacking options -->
+      <label>Button Stacking:</label>
+      <input type="radio" id="button-stacking-horizontal" name="button-stacking" value="horizontal">
+      <label for="button-stacking-horizontal">Horizontal</label>
+      <input type="radio" id="button-stacking-vertical" name="button-stacking" value="vertical">
+      <label for="button-stacking-vertical">Vertical</label>
+      <!-- Button font options -->
+      <label for="button-font-style">Font Style:</label>
+      <select id="button-font-style">
+        <option value="inherit">Inherit</option>
+        <option value="arial">Arial</option>
+        <option value="verdana">Verdana</option>
+        <!-- Add more font options -->
+      </select>
+      <label for="button-font-color">Font Color:</label>
+      <input type="color" id="button-font-color">
+      <label for="button-font-size">Font Size:</label>
+      <input type="number" id="button-font-size" min="8" step="1">
+      <!-- Button size options -->
+      <label for="button-width">Button Width:</label>
+      <input type="number" id="button-width" min="0" step="1">
+      <label for="button-height">Button Height:</label>
+      <input type="number" id="button-height" min="0" step="1">
+      <!-- Button color options -->
+      <label for="button-color">Button Color:</label>
+      <input type="color" id="button-color">
+      <!-- Button location options -->
+      <label for="button-location">Button Location:</label>
+      <select id="button-location">
+        <option value="top-left">Top Left</option>
+        <option value="top-center">Top Center</option>
+        <option value="top-right">Top Right</option>
+        <option value="bottom-left">Bottom Left</option>
+        <option value="bottom-center">Bottom Center</option>
+        <option value="bottom-right">Bottom Right</option>
+      </select>
+      <!-- Button opacity options -->
+      <label for="button-opacity">Button Opacity:</label>
+      <input type="range" id="button-opacity" min="0" max="1" step="0.1">
+      <!-- Button border options -->
+      <label for="button-border">Button Border:</label>
+      <input type="checkbox" id="button-border">
+      <label for="button-border-color">Border Color:</label>
+      <input type="color" id="button-border-color">
+      <label for="button-border-weight">Border Weight:</label>
+      <input type="number" id="button-border-weight" min="0" step="1">
+      <!-- Button radius options -->
+      <label for="button-radius">Button Radius:</label>
+      <input type="number" id="button-radius" min="0" step="1">
+    </div>
+    <div class="editor-section">
+      <h2>Caption Attributes</h2>
+      <!-- Caption visibility options -->
+      <label for="caption-visibility">Captions:</label>
+      <input type="checkbox" id="caption-visibility">
+      <!-- Caption location options -->
+      <label for="caption-location">Caption Location:</label>
+      <select id="caption-location">
+        <option value="top">Top</option>
+        <option value="bottom">Bottom</option>
+        <option value="center">Center</option>
+      </select>
+      <!-- Caption font options -->
+      <label for="caption-font-style">Font Style:</label>
+      <select id="caption-font-style">
+        <option value="inherit">Inherit</option>
+        <option value="arial">Arial</option>
+        <option value="verdana">Verdana</option>
+        <!-- Add more font options -->
+      </select>
+      <label for="caption-font-color">Font Color:</label>
+      <input type="color" id="caption-font-color">
+      <label for="caption-font-size">Font Size:</label>
+      <input type="number" id="caption-font-size" min="8" step="1">
+      <!-- Caption opacity options -->
+      <label for="caption-opacity">Caption Opacity:</label>
+      <input type="range" id="caption-opacity" min="0" max="1" step="0.1">
+      <!-- Caption text wrapping options -->
+      <label for="caption-text-wrap">Text Wrapping:</label>
+      <select id="caption-text-wrap">
+        <option value="nowrap">No Wrap</option>
+        <option value="wrap">Wrap</option>
+        <option value="word-wrap">Word Wrap</option>
+      </select>
+    </div>
+    <div class="editor-section">
+      <h2>Loading Screen</h2>
+      <!-- Logo upload options -->
+      <label for="loading-logo-upload">Upload Logo:</label>
+      <input type="file" id="loading-logo-upload" accept="image/*">
+      <!-- Loading screen style options -->
+      <label for="loading-style">Loading Style:</label>
+      <select id="loading-style">
+        <option value="logo">Logo</option>
+        <option value="spinner">Spinner</option>
+        <option value="progress-bar">Progress Bar</option>
+      </select>
+      <!-- Small logo hyperlink options -->
+      <label for="small-logo-hyperlink">Small Logo Hyperlink:</label>
+      <input type="checkbox" id="small-logo-hyperlink">
+    </div>
+    <div class="editor-section">
+      <h2>Preview</h2>
+      <!-- Preview area for the interactive video -->
+      <div id="preview-container"></div>
+    </div>
+    <button id="generate-button">Generate</button>
+  </div>
+  <script src="editor-script.js"></script>
+</body>
+</html>
