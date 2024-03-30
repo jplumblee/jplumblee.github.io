@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Interactive Video Editor</title>
   <link rel="stylesheet" href="editor-styles.css">
+  <script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
 </head>
 <body>
   <div class="editor-container">
@@ -136,8 +137,24 @@
     </div>
     <div class="editor-section">
       <h2>Preview</h2>
-      <!-- Preview area for the interactive video -->
-      <div id="preview-container"></div>
+      <div id="preview-container">
+        <div class="video-container">
+          <div class="video-wrapper">
+            <video id="preview-video" playsinline>
+              <source src="intro.mp4" type="video/mp4">
+            </video>
+            <div id="preview-wipe"></div>
+            <div class="overlay-container" id="preview-overlay-container">
+              <!-- Overlay buttons will be added here dynamically -->
+            </div>
+            <a href="https://www.humanry.com/" target="_blank"><div class="logo"></div></a>
+            <div class="loading-screen">
+              <div class="loading-logo"></div>
+              <div class="progress-bar"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <button id="generate-button">Generate</button>
   </div>

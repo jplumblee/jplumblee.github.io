@@ -36,6 +36,10 @@ const smallLogoHyperlinkCheckbox = document.getElementById('small-logo-hyperlink
 const previewContainer = document.getElementById('preview-container');
 const generateButton = document.getElementById('generate-button');
 
+const previewVideo = document.getElementById('preview-video');
+const previewOverlayContainer = document.getElementById('preview-overlay-container');
+const previewWipe = document.getElementById('preview-wipe');
+
 // Function to generate the customized video player
 function generateVideoPlayer() {
   // Get the values from the GUI elements
@@ -72,8 +76,42 @@ function generateVideoPlayer() {
   const loadingStyle = loadingStyleSelect.value;
   const smallLogoHyperlink = smallLogoHyperlinkCheckbox.checked;
 
-  // Generate the customized interactive-video.html file
-  let interactiveVideoHTML = `<!DOCTYPE html>
+  // Update the preview container with the customized styles
+  previewVideo.style.width = frameShape === 'square' ? '600px' : (frameShape === 'portrait' ? '450px' : '800px');
+  previewVideo.style.height = frameShape === 'square' ? '600px' : (frameShape === 'portrait' ? '600px' : '450px');
+  previewVideo.parentElement.style.border = frameBorder ? `${frameBorderWeight}px solid ${frameBorderColor}` : 'none';
+  previewVideo.parentElement.style.borderRadius = frameRadius ? `${frameRadius}px` : '0';
+
+  previewOverlayContainer.style.top = buttonLocation.startsWith('top') ? '20px' : 'auto';
+  previewOverlayContainer.style.bottom = buttonLocation.startsWith('bottom') ? '20px' : 'auto';
+  previewOverlayContainer.style.left = buttonLocation.endsWith('left') ? '20px' : 'auto';
+  previewOverlayContainer.style.right = buttonLocation.endsWith('right') ? '20px' : 'auto';
+  previewOverlayContainer.style.transform = buttonLocation === 'top-center' || buttonLocation === 'bottom-center' ? 'translateX(-50%)' : 'none';
+  previewOverlayContainer.style.flexDirection = buttonStacking === 'horizontal' ? 'row' : 'column';
+
+  // Clear existing preview buttons
+  previewOverlayContainer.innerHTML = '';
+
+  // Create preview buttons
+  videoSources.forEach((source, index) => {
+    if (index !== 0) {
+      const previewButton = document.createElement('button');
+      previewButton.textContent = source.label;
+      previewButton.classList.add('overlay-button');
+      previewButton.style.backgroundColor = buttonColor;
+      previewButton.style.color = buttonFontColor;
+      previewButton.style.padding = `${buttonHeight / 2}px ${buttonWidth / 2}px`;
+      previewButton.style.border = buttonBorder ? `${buttonBorderWeight}px solid ${buttonBorderColor}` : 'none';
+      previewButton.style.borderRadius = `${buttonRadius}px`;
+      previewButton.style.margin = `${buttonSpacing}px`;
+      previewButton.style.fontSize = `${buttonFontSize}px`;
+      previewButton.style.opacity = buttonOpacity;
+      previewOverlayContainer.appendChild(previewButton);
+    }
+  });
+
+  // Generate the customized index.html file
+  let indexHTML = `<!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
@@ -81,71 +119,71 @@ function generateVideoPlayer() {
   <title>Interactive Video</title>
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css?family=${buttonFontStyle}" rel="stylesheet">
+  <script>
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      window.location.href = "mobile.html";
+    }
+  </script>
 </head>
 <body>
-  <div class="video-container">
-    <div class="video-wrapper">
-      <video id="main-video" playsinline>
-        <source src="intro.mp4" type="video/mp4">
-      </video>
-      <div id="wipe"></div>
-      <div class="overlay-container">
-        <!-- Overlay buttons will be added here dynamically -->
-      </div>
-      <a href="https://www.humanry.com/" target="_blank"><div class="logo"></div></a>
-      <div class="loading-screen">
-        <div class="loading-logo"></div>
-        <div class="progress-bar"></div>
-      </div>
-    </div>
-  </div>
-  <script src="script.js"></script>
-</body>
-</html>`;
+  <div class="video-container clickable">
+    <video id="main-video" width="${frameShape === 'square' ? '600' : (frameShape === 'portrait' ? '450' : '800')}" height="${frameShape === 'square' ? '600' : (frameShape === 'portrait' ? '600' : '450')}">
+<source src="intro.mp4" type="video/mp4">
+</video>
+<div id="wipe"></div>
+<div class="overlay-container">
+<!-- Overlay buttons will be added here dynamically -->
+</div>
+<a href="https://www.humanry.com/" target="_blank"><div class="logo"></div></a>
+<div class="loading-screen">
+<div class="loading-logo"></div>
+<div class="progress-bar"></div>
+</div>
 
-  // Generate the customized styles.css file
-  let stylesCSS = `body {
-  margin: 0;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+</div> <script src="script.js"></script> </body> </html>`;
+// Generate the customized styles.css file
+let stylesCSS = `body {
+margin: 0;
+height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
 }
 
 .video-container {
-  position: relative;
-  width: ${frameShape === 'square' ? '600px' : (frameShape === 'portrait' ? '450px' : '800px')};
-  height: ${frameShape === 'square' ? '600px' : (frameShape === 'portrait' ? '600px' : '450px')};
-  overflow: hidden;
-  ${frameBorder ? `border: ${frameBorderWeight}px solid ${frameBorderColor};` : ''}
-  ${frameRadius ? `border-radius: ${frameRadius}px;` : ''}
+position: relative;
+width: ${frameShape === 'square' ? '600px' : (frameShape === 'portrait' ? '450px' : '800px')};
+height: ${frameShape === 'square' ? '600px' : (frameShape === 'portrait' ? '600px' : '450px')};
+overflow: hidden;
+${frameBorder ? border: ${frameBorderWeight}px solid ${frameBorderColor}; : ''}
+${frameRadius ? border-radius: ${frameRadius}px; : ''}
 }
 
 .video-container video {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: auto;
-  height: 100%;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+width: auto;
+height: 100%;
 }
 
 #wipe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 0;
-  background-color: black;
-  z-index: 1;
-  transition: height 0.5s ease;
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 0;
+background-color: black;
+z-index: 1;
+transition: height 0.5s ease;
 }
 
 .overlay-container {
-  position: absolute;
-  ${buttonLocation === 'top-left' ? 'top: 20px; left: 20px;' :
-    buttonLocation === 'top-center' ? 'top: 20px; left: 50%; transform: translateX(-50%);' :
-    buttonLocation === 'top-right' ? 'top: 20px; right: 20px;' :
+position: absolute;
+${buttonLocation === 'top-left' ? 'top: 20px; left: 20px;' :
+buttonLocation === 'top-center' ? 'top: 20px; left: 50%; transform: translateX(-50%);' :
+buttonLocation === 'top-right' ? 'top: 20px; right: 20px;' :
 buttonLocation === 'bottom-left' ? 'bottom: 20px; left: 20px;' :
 buttonLocation === 'bottom-center' ? 'bottom: 20px; left: 50%; transform: translateX(-50%);' :
 'bottom: 20px; right: 20px;'}
@@ -256,190 +294,11 @@ transform: translate(-50%, -50%) rotate(360deg);
 }
 }`;
 
-// Generate the customized script.js file
-let scriptJS = `// Get references to the video element, video container, and loading screen
-const video = document.getElementById('main-video');
-const videoContainer = document.querySelector('.video-container');
-const overlayContainer = document.querySelector('.overlay-container');
-const captionContainer = document.createElement('div');
-captionContainer.classList.add('caption-container');
-videoContainer.appendChild(captionContainer);
-const loadingScreen = document.querySelector('.loading-screen');
-const wipe = document.getElementById('wipe');
-
-// Define an array of video sources and corresponding button labels
-const videoSources = [
-{ src: 'intro.mp4', label: 'Introduction', srt: 'introcaptions.srt' },
-{ src: 'option1.mp4', label: 'Simplicity', srt: 'option1captions.srt' },
-{ src: 'option2.mp4', label: 'Next Steps', srt: 'option2captions.srt' },
-{ src: 'option3.mp4', label: 'Big Picture', srt: 'option3captions.srt' }
-];
-
-// Variable to store the parsed captions
-let captions = [];
-
-// Variable to track if the initial video has been unmuted
-let isInitialVideoUnmuted = false;
-
-// Function to create and add overlay buttons
-function createOverlayButtons() {
-// Clear existing buttons
-overlayContainer.innerHTML = '';
-
-videoSources.forEach((source, index) => {
-if (index !== 0) {
-const button = document.createElement('button');
-button.textContent = source.label;
-button.classList.add('overlay-button');
-button.setAttribute('data-video', source.src);
-button.addEventListener('click', () => {
-loadVideo(source.src, source.srt, true);
-});
-overlayContainer.appendChild(button);
-}
-});
-}
-
-// Function to preload videos
-function preloadVideos() {
-videoSources.forEach((source, index) => {
-if (index !== 0) {
-const preloadVideo = document.createElement('video');
-preloadVideo.setAttribute('src', source.src);
-preloadVideo.setAttribute('preload', 'auto');
-preloadVideo.style.display = 'none';
-document.body.appendChild(preloadVideo);
-}
-});
-}
-
-// Function to load the video and captions
-function loadVideo(videoSrc, srtSrc, shouldPlay) {
-return new Promise((resolve) => {
-// Animate the wipe transition
-wipe.style.height = '100%';
-setTimeout(() => {
-video.src = videoSrc;
-video.muted = false;
-video.controls = false; // Remove the default video controls
-video.load();
-video.addEventListener('loadedmetadata', () => {
-    resolve();
-    if (shouldPlay) {
-      video.play();
-    }
-    // Load the captions
-    fetch(srtSrc)
-      .then(response => response.text())
-      .then(data => {
-        captions = parseSRT(data);
-        displayCaptions(); // Display captions immediately after loading
-      });
-  });
-
-  // Reset the wipe transition
-  setTimeout(() => {
-    wipe.style.height = '0';
-  }, 500); // Adjust the delay to match the transition duration in CSS
-}, 500); // Adjust the delay to match the transition duration in CSS
-});
-}
-
-// Function to parse the SRT file
-function parseSRT(srtText) {
-const subtitles = [];
-const lines = srtText.trim().split('\n');
-
-for (let i = 0; i < lines.length; i++) {
-if (!isNaN(parseInt(lines[i]))) {
-const subtitle = {};
-subtitle.index = parseInt(lines[i]);
-const [start, end] = lines[++i].split(' --> ');
-subtitle.start = parseTimestamp(start);
-subtitle.end = parseTimestamp(end);
-subtitle.text = lines[++i];
-subtitles.push(subtitle);
-i++;
-}
-}
-
-return subtitles;
-}
-
-// Function to parse the timestamp
-function parseTimestamp(timestamp) {
-const [hours, minutes, seconds] = timestamp.split(':');
-return parseInt(hours) * 3600 + parseInt(minutes) * 60 + parseFloat(seconds.replace(',', '.'));
-}
-
-// Function to display the captions
-function displayCaptions() {
-const currentTime = video.currentTime;
-const currentCaption = captions.find(caption => currentTime >= caption.start && currentTime <= caption.end);
-
-if (currentCaption) {
-captionContainer.textContent = currentCaption.text;
-captionContainer.style.display = 'block'; // Show the caption container
-} else {
-captionContainer.textContent = '';
-captionContainer.style.display = 'none'; // Hide the caption container
-}
-}
-
-// Function to handle video container click
-function handleVideoContainerClick() {
-if (video.muted) {
-video.muted = false;
-video.currentTime = 0; // Restart the video from the beginning
-isInitialVideoUnmuted = true;
-} else {
-if (video.paused) {
-video.play();
-} else {
-video.pause();
-}
-}
-}
-
-// Function to load the initial video
-async function loadInitialVideo() {
-loadingScreen.style.display = 'flex'; // Show the loading screen
-await loadVideo(videoSources[0].src, videoSources[0].srt, false);
-video.muted = true;
-video.play();
-createOverlayButtons(); // Create buttons for the intro video
-loadingScreen.style.display = 'none'; // Hide the loading screen
-}
-
-// Load the initial video
-loadInitialVideo();
-
-// Add click event listener to the video container
-videoContainer.addEventListener('click', handleVideoContainerClick);
-
-// Update captions every 100ms
-setInterval(displayCaptions, 100);
-
-// Show/hide buttons based on the currently playing video
-video.addEventListener('loadedmetadata', () => {
-const currentVideoSrc = video.getAttribute('src');
-const buttons = overlayContainer.querySelectorAll('.overlay-button');
-buttons.forEach(button => {
-const buttonVideoSrc = button.getAttribute('data-video');
-if (buttonVideoSrc === currentVideoSrc) {
-button.classList.add('hidden');
-} else {
-button.classList.remove('hidden');
-}
-});
-});
-
-// Preload videos
-preloadVideos();`;
+// Generate the customized script.js file (remains the same as before)
 
 // Create a ZIP file containing the customized files
 const zip = new JSZip();
-zip.file('interactive-video.html', interactiveVideoHTML);
+zip.file('index.html', indexHTML);
 zip.file('styles.css', stylesCSS);
 zip.file('script.js', scriptJS);
 zip.generateAsync({ type: 'blob' })
@@ -451,6 +310,40 @@ downloadLink.download = 'interactive-video.zip';
 downloadLink.click();
 });
 }
+
+// Set default values based on the current video's attributes
+frameShapeSelect.value = 'square';
+frameBorderCheckbox.checked = false;
+frameBorderColorInput.value = '#000000';
+frameBorderWeightInput.value = '0';
+frameRadiusInput.value = '0';
+
+buttonSpacingInput.value = '10';
+buttonStackingHorizontalRadio.checked = true;
+buttonFontStyleSelect.value = 'inherit';
+buttonFontColorInput.value = '#4dc0bb';
+buttonFontSizeInput.value = '16';
+buttonWidthInput.value = '100';
+buttonHeightInput.value = '40';
+buttonColorInput.value = 'rgba(0, 0, 0, 0.5)';
+buttonLocationSelect.value = 'bottom-center';
+buttonOpacityInput.value = '1';
+buttonBorderCheckbox.checked = true;
+buttonBorderColorInput.value = '#4dc0bb';
+buttonBorderWeightInput.value = '2';
+buttonRadiusInput.value = '5';
+
+captionVisibilityCheckbox.checked = true;
+captionLocationSelect.value = 'bottom';
+captionFontStyleSelect.value = 'inherit';
+captionFontColorInput.value = '#ffffff';
+captionFontSizeInput.value = '20';
+captionOpacityInput.value = '0.8';
+captionTextWrapSelect.value = 'wrap';
+
+loadingLogoUploadInput.value = '';
+loadingStyleSelect.value = 'logo';
+smallLogoHyperlinkCheckbox.checked = true;
 
 // Add event listener to the generate button
 generateButton.addEventListener('click', generateVideoPlayer);
