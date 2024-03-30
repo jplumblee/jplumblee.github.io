@@ -37,6 +37,10 @@ function createOverlayButtons() {
             button.addEventListener('click', () => {
                 loadVideo(source.src, source.srt, true);
             });
+            button.addEventListener('touchstart', (event) => {
+                event.preventDefault();
+                loadVideo(source.src, source.srt, true);
+            });
             overlayContainer.appendChild(button);
         }
     });
