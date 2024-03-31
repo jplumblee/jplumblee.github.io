@@ -57,6 +57,17 @@
         <option value="Impact, Charcoal, sans-serif">Impact</option>
         <option value="'Comic Sans MS', cursive, sans-serif">Comic Sans MS</option>
         <option value="'Lucida Console', Monaco, monospace">Lucida Console</option>
+        <option value="'Palatino Linotype', 'Book Antiqua', Palatino, serif">Palatino Linotype</option>
+        <option value="'Lucida Handwriting', cursive">Lucida Handwriting</option>
+        <option value="'Copperplate Gothic Light', fantasy">Copperplate Gothic Light</option>
+        <option value="'Papyrus', fantasy">Papyrus</option>
+        <option value="'Brush Script Std', cursive">Brush Script Std</option>
+        <option value="'Bodoni MT', 'Bodoni 72', 'Didot', 'Didot LT STD', 'Book Antiqua', Palatino, serif">Bodoni MT</option>
+        <option value="'Bookman Old Style', 'Bookman', 'Goudy Old Style', Garamond, 'Hoefler Text', 'Bitstream Charter', Georgia, serif">Bookman Old Style</option>
+        <option value="'Century Gothic', CenturyGothic, AppleGothic, sans-serif">Century Gothic</option>
+        <option value="'Bradley Hand', cursive">Bradley Hand</option>
+        <option value="'Calisto MT', 'Bookman Old Style', Bookman, 'Goudy Old Style', Garamond, 'Hoefler Text', 'Bitstream Charter', Georgia, serif">Calisto MT</option>
+        <option value="'Copperplate Gothic Bold', Copperplate, fantasy">Copperplate Gothic Bold</option>
       </select>
       <label for="button-font-color">Font Color:</label>
       <input type="color" id="button-font-color">
@@ -81,8 +92,8 @@
         <option value="bottom-right">Bottom Right</option>
       </select>
       <!-- Button opacity options -->
-      <label for="button-opacity">Button Opacity:</label>
-      <input type="range" id="button-opacity" min="0" max="1" step="0.1">
+      <label for="button-opacity">Button Opacity (%):</label>
+      <input type="number" id="button-opacity" min="0" max="100" step="1">
       <!-- Button border options -->
       <label for="button-border">Button Border:</label>
       <input type="checkbox" id="button-border">
@@ -130,14 +141,25 @@
         <option value="Impact, Charcoal, sans-serif">Impact</option>
         <option value="'Comic Sans MS', cursive, sans-serif">Comic Sans MS</option>
         <option value="'Lucida Console', Monaco, monospace">Lucida Console</option>
+        <option value="'Palatino Linotype', 'Book Antiqua', Palatino, serif">Palatino Linotype</option>
+        <option value="'Lucida Handwriting', cursive">Lucida Handwriting</option>
+        <option value="'Copperplate Gothic Light', fantasy">Copperplate Gothic Light</option>
+        <option value="'Papyrus', fantasy">Papyrus</option>
+        <option value="'Brush Script Std', cursive">Brush Script Std</option>
+        <option value="'Bodoni MT', 'Bodoni 72', 'Didot', 'Didot LT STD', 'Book Antiqua', Palatino, serif">Bodoni MT</option>
+        <option value="'Bookman Old Style', 'Bookman', 'Goudy Old Style', Garamond, 'Hoefler Text', 'Bitstream Charter', Georgia, serif">Bookman Old Style</option>
+        <option value="'Century Gothic', CenturyGothic, AppleGothic, sans-serif">Century Gothic</option>
+        <option value="'Bradley Hand', cursive">Bradley Hand</option>
+        <option value="'Calisto MT', 'Bookman Old Style', Bookman, 'Goudy Old Style', Garamond, 'Hoefler Text', 'Bitstream Charter', Georgia, serif">Calisto MT</option>
+        <option value="'Copperplate Gothic Bold', Copperplate, fantasy">Copperplate Gothic Bold</option>
       </select>
       <label for="caption-font-color">Font Color:</label>
       <input type="color" id="caption-font-color">
       <label for="caption-font-size">Font Size (px):</label>
       <input type="number" id="caption-font-size" min="8" step="1">
       <!-- Caption opacity options -->
-      <label for="caption-opacity">Caption Opacity:</label>
-      <input type="range" id="caption-opacity" min="0" max="1" step="0.1">
+      <label for="caption-opacity">Caption Opacity (%):</label>
+      <input type="number" id="caption-opacity" min="0" max="100" step="1">
       <!-- Caption text wrapping options -->
       <label for="caption-text-wrap">Text Wrapping:</label>
       <select id="caption-text-wrap">
@@ -173,6 +195,9 @@
             <div id="preview-wipe"></div>
             <div class="overlay-container" id="preview-overlay-container">
               <!-- Overlay buttons will be added here dynamically -->
+            </div>
+            <div class="caption-container" id="preview-caption-container">
+              <!-- Captions will be displayed here dynamically -->
             </div>
             <a href="https://www.humanry.com/" target="_blank"><div class="logo"></div></a>
             <div class="loading-screen">
