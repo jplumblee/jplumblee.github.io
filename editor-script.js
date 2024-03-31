@@ -1,102 +1,22 @@
-// Get references to the GUI elements
-const frameShapeSelect = document.getElementById('frame-shape');
-const frameBorderCheckbox = document.getElementById('frame-border');
-const frameBorderColorInput = document.getElementById('frame-border-color');
-const frameBorderWeightInput = document.getElementById('frame-border-weight');
-const frameRadiusInput = document.getElementById('frame-radius');
-
-const buttonSpacingInput = document.getElementById('button-spacing');
-const buttonStackingHorizontalRadio = document.getElementById('button-stacking-horizontal');
-const buttonStackingVerticalRadio = document.getElementById('button-stacking-vertical');
-const buttonFontStyleSelect = document.getElementById('button-font-style');
-const buttonFontColorInput = document.getElementById('button-font-color');
-const buttonFontSizeInput = document.getElementById('button-font-size');
-const buttonWidthInput = document.getElementById('button-width');
-const buttonHeightInput = document.getElementById('button-height');
-const buttonColorInput = document.getElementById('button-color');
-const buttonLocationSelect = document.getElementById('button-location');
-const buttonOpacityInput = document.getElementById('button-opacity');
-const buttonBorderCheckbox = document.getElementById('button-border');
-const buttonBorderColorInput = document.getElementById('button-border-color');
-const buttonBorderWeightInput = document.getElementById('button-border-weight');
-const buttonRadiusInput = document.getElementById('button-radius');
-
-const captionVisibilityCheckbox = document.getElementById('caption-visibility');
-const captionLocationSelect = document.getElementById('caption-location');
-const captionFontStyleSelect = document.getElementById('caption-font-style');
-const captionFontColorInput = document.getElementById('caption-font-color');
-const captionFontSizeInput = document.getElementById('caption-font-size');
-const captionOpacityInput = document.getElementById('caption-opacity');
-const captionTextWrapSelect = document.getElementById('caption-text-wrap');
-
-const loadingLogoUploadInput = document.getElementById('loading-logo-upload');
-const loadingStyleSelect = document.getElementById('loading-style');
-const smallLogoHyperlinkCheckbox = document.getElementById('small-logo-hyperlink');
-
-const previewContainer = document.getElementById('preview-container');
-const generateButton = document.getElementById('generate-button');
-
-const previewVideo = document.getElementById('preview-video');
-const previewOverlayContainer = document.getElementById('preview-overlay-container');
-const previewWipe = document.getElementById('preview-wipe');
+// ... (previous code remains the same) ...
 
 // Function to generate the customized video player
 function generateVideoPlayer() {
-  // Get the values from the GUI elements
-  const frameShape = frameShapeSelect.value;
-  const frameBorder = frameBorderCheckbox.checked;
-  const frameBorderColor = frameBorderColorInput.value;
-  const frameBorderWeight = frameBorderWeightInput.value;
-  const frameRadius = frameRadiusInput.value;
+  // ... (previous code remains the same) ...
 
-  const buttonSpacing = buttonSpacingInput.value;
-  const buttonStacking = buttonStackingHorizontalRadio.checked ? 'horizontal' : 'vertical';
-  const buttonFontStyle = buttonFontStyleSelect.value;
-  const buttonFontColor = buttonFontColorInput.value;
-  const buttonFontSize = buttonFontSizeInput.value;
-  const buttonWidth = buttonWidthInput.value;
-  const buttonHeight = buttonHeightInput.value;
-  const buttonColor = buttonColorInput.value;
-  const buttonLocation = buttonLocationSelect.value;
-  const buttonOpacity = buttonOpacityInput.value;
-  const buttonBorder = buttonBorderCheckbox.checked;
-  const buttonBorderColor = buttonBorderColorInput.value;
-  const buttonBorderWeight = buttonBorderWeightInput.value;
-  const buttonRadius = buttonRadiusInput.value;
-
-  const captionVisibility = captionVisibilityCheckbox.checked;
-  const captionLocation = captionLocationSelect.value;
-  const captionFontStyle = captionFontStyleSelect.value;
-  const captionFontColor = captionFontColorInput.value;
-  const captionFontSize = captionFontSizeInput.value;
-  const captionOpacity = captionOpacityInput.value;
-  const captionTextWrap = captionTextWrapSelect.value;
-
-  const loadingLogo = loadingLogoUploadInput.files[0];
-  const loadingStyle = loadingStyleSelect.value;
-  const smallLogoHyperlink = smallLogoHyperlinkCheckbox.checked;
+  const button1Text = document.getElementById('button1-text').value;
+  const button2Text = document.getElementById('button2-text').value;
+  const button3Text = document.getElementById('button3-text').value;
 
   // Update the preview container with the customized styles
-  previewVideo.style.width = frameShape === 'square' ? '600px' : (frameShape === 'portrait' ? '450px' : '800px');
-  previewVideo.style.height = frameShape === 'square' ? '600px' : (frameShape === 'portrait' ? '600px' : '450px');
-  previewVideo.parentElement.style.border = frameBorder ? `${frameBorderWeight}px solid ${frameBorderColor}` : 'none';
-  previewVideo.parentElement.style.borderRadius = frameRadius ? `${frameRadius}px` : '0';
-
-  previewOverlayContainer.style.top = buttonLocation.startsWith('top') ? '20px' : 'auto';
-  previewOverlayContainer.style.bottom = buttonLocation.startsWith('bottom') ? '20px' : 'auto';
-  previewOverlayContainer.style.left = buttonLocation.endsWith('left') ? '20px' : 'auto';
-  previewOverlayContainer.style.right = buttonLocation.endsWith('right') ? '20px' : 'auto';
-  previewOverlayContainer.style.transform = buttonLocation === 'top-center' || buttonLocation === 'bottom-center' ? 'translateX(-50%)' : 'none';
-  previewOverlayContainer.style.flexDirection = buttonStacking === 'horizontal' ? 'row' : 'column';
-
-  // Clear existing preview buttons
-  previewOverlayContainer.innerHTML = '';
+  // ... (previous code remains the same) ...
 
   // Create preview buttons
+  const buttonTexts = [button1Text, button2Text, button3Text];
   videoSources.forEach((source, index) => {
     if (index !== 0) {
       const previewButton = document.createElement('button');
-      previewButton.textContent = source.label;
+      previewButton.textContent = buttonTexts[index - 1];
       previewButton.classList.add('overlay-button');
       previewButton.style.backgroundColor = buttonColor;
       previewButton.style.color = buttonFontColor;
@@ -118,7 +38,7 @@ function generateVideoPlayer() {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Interactive Video</title>
   <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css?family=${buttonFontStyle}" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=${buttonFontStyle.replace(/"/g, "'")}" rel="stylesheet">
   <script>
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
       window.location.href = "mobile.html";
@@ -128,11 +48,13 @@ function generateVideoPlayer() {
 <body>
   <div class="video-container clickable">
     <video id="main-video" width="${frameShape === 'square' ? '600' : (frameShape === 'portrait' ? '450' : '800')}" height="${frameShape === 'square' ? '600' : (frameShape === 'portrait' ? '600' : '450')}">
-<source src="intro.mp4" type="video/mp4">
+      <source src="intro.mp4" type="video/mp4">
 </video>
 <div id="wipe"></div>
 <div class="overlay-container">
-<!-- Overlay buttons will be added here dynamically -->
+<button class="overlay-button" data-video="option1.mp4">${button1Text}</button>
+<button class="overlay-button" data-video="option2.mp4">${button2Text}</button>
+<button class="overlay-button" data-video="option3.mp4">${button3Text}</button>
 </div>
 <a href="https://www.humanry.com/" target="_blank"><div class="logo"></div></a>
 <div class="loading-screen">
@@ -223,7 +145,7 @@ background-color: rgba(0, 0, 0, 0.7);
 color: ${captionFontColor};
 padding: 5px 10px;
 font-size: ${captionFontSize}px;
-font-family: '${captionFontStyle}', sans-serif;
+font-family: ${captionFontStyle.replace(/"/g, "'")};
 text-align: center;
 max-width: 80%;
 white-space: ${captionTextWrap};
@@ -332,6 +254,10 @@ buttonBorderCheckbox.checked = true;
 buttonBorderColorInput.value = '#4dc0bb';
 buttonBorderWeightInput.value = '2';
 buttonRadiusInput.value = '5';
+
+document.getElementById('button1-text').value = 'Option 1';
+document.getElementById('button2-text').value = 'Option 2';
+document.getElementById('button3-text').value = 'Option 3';
 
 captionVisibilityCheckbox.checked = true;
 captionLocationSelect.value = 'bottom';

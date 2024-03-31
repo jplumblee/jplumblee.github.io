@@ -2,13 +2,13 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Interactive Video Editor</title>
+  <title>Humanry Story Editor</title>
   <link rel="stylesheet" href="editor-styles.css">
   <script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
 </head>
 <body>
   <div class="editor-container">
-    <h1>Interactive Video Editor</h1>
+    <h1>Humanry Story Editor</h1>
     <div class="editor-section">
       <h2>Frame Attributes</h2>
       <!-- Frame shape options -->
@@ -23,16 +23,16 @@
       <input type="checkbox" id="frame-border">
       <label for="frame-border-color">Border Color:</label>
       <input type="color" id="frame-border-color">
-      <label for="frame-border-weight">Border Weight:</label>
+      <label for="frame-border-weight">Border Weight (px):</label>
       <input type="number" id="frame-border-weight" min="0" step="1">
       <!-- Frame radius options -->
-      <label for="frame-radius">Border Radius:</label>
+      <label for="frame-radius">Border Radius (px):</label>
       <input type="number" id="frame-radius" min="0" step="1">
     </div>
     <div class="editor-section">
       <h2>Button Attributes</h2>
       <!-- Button spacing options -->
-      <label for="button-spacing">Button Spacing:</label>
+      <label for="button-spacing">Button Spacing (px):</label>
       <input type="number" id="button-spacing" min="0" step="1">
       <!-- Button stacking options -->
       <label>Button Stacking:</label>
@@ -44,18 +44,28 @@
       <label for="button-font-style">Font Style:</label>
       <select id="button-font-style">
         <option value="inherit">Inherit</option>
-        <option value="arial">Arial</option>
-        <option value="verdana">Verdana</option>
-        <!-- Add more font options -->
+        <option value="Arial, sans-serif">Arial</option>
+        <option value="'Helvetica Neue', Helvetica, Arial, sans-serif">Helvetica Neue</option>
+        <option value="'Times New Roman', Times, serif">Times New Roman</option>
+        <option value="Georgia, serif">Georgia</option>
+        <option value="Verdana, Geneva, sans-serif">Verdana</option>
+        <option value="'Courier New', Courier, monospace">Courier New</option>
+        <option value="'Brush Script MT', cursive">Brush Script MT</option>
+        <option value="'Lucida Sans Unicode', 'Lucida Grande', sans-serif">Lucida Sans Unicode</option>
+        <option value="'Trebuchet MS', Helvetica, sans-serif">Trebuchet MS</option>
+        <option value="'Arial Black', Gadget, sans-serif">Arial Black</option>
+        <option value="Impact, Charcoal, sans-serif">Impact</option>
+        <option value="'Comic Sans MS', cursive, sans-serif">Comic Sans MS</option>
+        <option value="'Lucida Console', Monaco, monospace">Lucida Console</option>
       </select>
       <label for="button-font-color">Font Color:</label>
       <input type="color" id="button-font-color">
-      <label for="button-font-size">Font Size:</label>
+      <label for="button-font-size">Font Size (px):</label>
       <input type="number" id="button-font-size" min="8" step="1">
       <!-- Button size options -->
-      <label for="button-width">Button Width:</label>
+      <label for="button-width">Button Width (px):</label>
       <input type="number" id="button-width" min="0" step="1">
-      <label for="button-height">Button Height:</label>
+      <label for="button-height">Button Height (px):</label>
       <input type="number" id="button-height" min="0" step="1">
       <!-- Button color options -->
       <label for="button-color">Button Color:</label>
@@ -78,11 +88,18 @@
       <input type="checkbox" id="button-border">
       <label for="button-border-color">Border Color:</label>
       <input type="color" id="button-border-color">
-      <label for="button-border-weight">Border Weight:</label>
+      <label for="button-border-weight">Border Weight (px):</label>
       <input type="number" id="button-border-weight" min="0" step="1">
       <!-- Button radius options -->
-      <label for="button-radius">Button Radius:</label>
+      <label for="button-radius">Button Radius (px):</label>
       <input type="number" id="button-radius" min="0" step="1">
+      <!-- Button text options -->
+      <label for="button1-text">Button 1 Text:</label>
+      <input type="text" id="button1-text">
+      <label for="button2-text">Button 2 Text:</label>
+      <input type="text" id="button2-text">
+      <label for="button3-text">Button 3 Text:</label>
+      <input type="text" id="button3-text">
     </div>
     <div class="editor-section">
       <h2>Caption Attributes</h2>
@@ -100,13 +117,23 @@
       <label for="caption-font-style">Font Style:</label>
       <select id="caption-font-style">
         <option value="inherit">Inherit</option>
-        <option value="arial">Arial</option>
-        <option value="verdana">Verdana</option>
-        <!-- Add more font options -->
+        <option value="Arial, sans-serif">Arial</option>
+        <option value="'Helvetica Neue', Helvetica, Arial, sans-serif">Helvetica Neue</option>
+        <option value="'Times New Roman', Times, serif">Times New Roman</option>
+        <option value="Georgia, serif">Georgia</option>
+        <option value="Verdana, Geneva, sans-serif">Verdana</option>
+        <option value="'Courier New', Courier, monospace">Courier New</option>
+        <option value="'Brush Script MT', cursive">Brush Script MT</option>
+        <option value="'Lucida Sans Unicode', 'Lucida Grande', sans-serif">Lucida Sans Unicode</option>
+        <option value="'Trebuchet MS', Helvetica, sans-serif">Trebuchet MS</option>
+        <option value="'Arial Black', Gadget, sans-serif">Arial Black</option>
+        <option value="Impact, Charcoal, sans-serif">Impact</option>
+        <option value="'Comic Sans MS', cursive, sans-serif">Comic Sans MS</option>
+        <option value="'Lucida Console', Monaco, monospace">Lucida Console</option>
       </select>
       <label for="caption-font-color">Font Color:</label>
       <input type="color" id="caption-font-color">
-      <label for="caption-font-size">Font Size:</label>
+      <label for="caption-font-size">Font Size (px):</label>
       <input type="number" id="caption-font-size" min="8" step="1">
       <!-- Caption opacity options -->
       <label for="caption-opacity">Caption Opacity:</label>
