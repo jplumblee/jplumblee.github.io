@@ -298,7 +298,7 @@ function generateVideoPlayer() {
   position: absolute;
   ${buttonLocation === 'top-left' ? 'top: 20px; left: 20px;' :
     buttonLocation === 'top-center' ? 'top: 20px; left: 50%; transform: translateX(-50%);' :
-    buttonLocation === 'top-right' ? 'top: 20px; right: 20px;' :
+buttonLocation === 'top-right' ? 'top: 20px; right: 20px;' :
 buttonLocation === 'bottom-left' ? 'bottom: 20px; left: 20px;' :
 buttonLocation === 'bottom-center' ? 'bottom: 20px; left: 50%; transform: translateX(-50%);' :
 'bottom: 20px; right: 20px;'}
@@ -409,24 +409,216 @@ transform: translate(-50%, -50%) rotate(360deg);
 }
 }`;
 
-// Generate the customized script.js file (remains the same as before)
+// Generate the customized script.js file
+let scriptJS = `// Get references to the video element, video container, and loading screen
+const video = document.getElementById('main-video');
+const videoContainer = document.querySelector('.video-container');
+const overlayContainer = document.querySelector('.overlay-container');
+const captionContainer = document.createElement('div');
+captionContainer.classList.add('caption-container');
+videoContainer.appendChild(captionContainer);
+const loadingScreen = document.querySelector('.loading-screen');
+const wipe = document.getElementById('wipe');
 
-// Create a ZIP file containing the customized files
-const zip = new JSZip();
-zip.file('index.html', indexHTML);
-zip.file('styles.css', stylesCSS);
-zip.file('script.js', scriptJS);
-zip.generateAsync({ type: 'blob' })
-.then(content => {
-// Create a download link for the ZIP file
-const downloadLink = document.createElement('a');
-downloadLink.href = URL.createObjectURL(content);
-downloadLink.download = 'interactive-video.zip';
-downloadLink.style.display = 'none';
-document.body.appendChild(downloadLink);
-downloadLink.click();
-document.body.removeChild(downloadLink);
+// Define an array of video sources and corresponding button labels
+const videoSources = [
+{ src: 'intro.mp4', label: '${button1Text}', srt: 'introcaptions.srt' },
+{ src: 'option1.mp4', label: '${button2Text}', srt: 'option1captions.srt' },
+{ src: 'option2.mp4', label: '${button3Text}', srt: 'option2captions.srt' },
+{ src: 'option3.mp4', label: '${button1Text}', srt: 'option3captions.srt' }
+];
+
+// Variable to store the parsed captions
+let captions = [];
+
+// Variable to track if the initial video has been unmuted
+let isInitialVideoUnmuted = false;
+
+// Function to create and add overlay buttons
+function createOverlayButtons() {
+// Clear existing buttons
+overlayContainer.innerHTML = '';
+
+videoSources.forEach((source, index) => {
+if (index !== 0) {
+const button = document.createElement('button');
+button.textContent = source.label;
+button.classList.add('overlay-button');
+button.setAttribute('data-video', source.src);
+button.addEventListener('click', () => {
+loadVideo(source.src, source.srt, true);
 });
+overlayContainer.appendChild(button);
+}
+});
+}
+
+// Function to preload videos
+function preloadVideos() {
+videoSources.forEach((source, index) => {
+if (index !== 0) {
+const preloadVideo = document.createElement('video');
+preloadVideo.setAttribute('src', source.src);
+preloadVideo.setAttribute('preload', 'auto');
+preloadVideo.style.display = 'none';
+document.body.appendChild(preloadVideo);
+}
+});
+}
+
+// Function to load the video and captions
+function loadVideo(videoSrc, srtSrc, shouldPlay) {
+return new Promise((resolve) => {
+// Animate the wipe transition
+wipe.style.height = '100%';
+setTimeout(() => {
+video.src = videoSrc;
+video.muted = false;
+video.controls = false; // Remove the default video controls
+video.load();
+video.addEventListener('loadedmetadata', () => {
+    resolve();
+    if (shouldPlay) {
+      video.play();
+    }
+    // Load the captions
+    fetch(srtSrc)
+      .then(response => response.text())
+      .then(data => {
+        captions = parseSRT(data);
+        displayCaptions(); // Display captions immediately after loading
+      });
+  });
+
+  // Reset the wipe transition
+  setTimeout(() => {
+    wipe.style.height = '0';
+  }, 500); // Adjust the delay to match the transition duration in CSS
+}, 500); // Adjust the delay to match the transition duration in CSS
+});
+}
+
+// Function to parse the SRT file
+function parseSRT(srtText) {
+const subtitles = [];
+const lines = srtText.trim().split('\n');
+
+for (let i = 0; i < lines.length; i++) {
+if (!isNaN(parseInt(lines[i]))) {
+const subtitle = {};
+subtitle.index = parseInt(lines[i]);
+const [start, end] = lines[++i].split(' --> ');
+subtitle.start = parseTimestamp(start);
+subtitle.end = parseTimestamp(end);
+subtitle.text = lines[++i];
+subtitles.push(subtitle);
+i++;
+}
+}
+
+return subtitles;
+}
+
+// Function to parse the timestamp
+function parseTimestamp(timestamp) {
+const [hours, minutes, seconds] = timestamp.split(':');
+return parseInt(hours) * 3600 + parseInt(minutes) * 60 + parseFloat(seconds.replace(',', '.'));
+}
+
+// Function to display the captions
+function displayCaptions() {
+const currentTime = video.currentTime;
+const currentCaption = captions.find(caption => currentTime >= caption.start && currentTime <= caption.end);
+
+if (currentCaption) {
+captionContainer.textContent = currentCaption.text;
+captionContainer.style.display = 'block'; // Show the caption container
+} else {
+captionContainer.textContent = '';
+captionContainer.style.display = 'none'; // Hide the caption container
+}
+}
+
+// Function to handle video container click
+function handleVideoContainerClick() {
+if (video.muted) {
+video.muted = false;
+video.currentTime = 0; // Restart the video from the beginning
+isInitialVideoUnmuted = true;
+} else {
+if (video.paused) {
+video.play();
+} else {
+video.pause();
+}
+}
+}
+
+// Function to load the initial video
+async function loadInitialVideo() {
+loadingScreen.style.display = 'flex'; // Show the loading screen
+await loadVideo(videoSources[0].src, videoSources[0].srt, false);
+video.muted = true;
+video.play();
+createOverlayButtons(); // Create buttons for the intro video
+loadingScreen.style.display = 'none'; // Hide the loading screen
+}
+
+// Load the initial video
+loadInitialVideo();
+
+// Add click event listener to the video container
+videoContainer.addEventListener('click', handleVideoContainerClick);
+
+// Update captions every 100ms
+setInterval(displayCaptions, 100);
+
+// Show/hide buttons based on the currently playing video
+video.addEventListener('loadedmetadata', () => {
+const currentVideoSrc = video.getAttribute('src');
+const buttons = overlayContainer.querySelectorAll('.overlay-button');
+buttons.forEach(button => {
+const buttonVideoSrc = button.getAttribute('data-video');
+if (buttonVideoSrc === currentVideoSrc) {
+button.classList.add('hidden');
+} else {
+button.classList.remove('hidden');
+}
+});
+});
+
+// Preload videos
+preloadVideos();`;
+
+// Create a Blob object for each generated file
+const indexBlob = new Blob([indexHTML], { type: 'text/html' });
+const stylesBlob = new Blob([stylesCSS], { type: 'text/css' });
+const scriptBlob = new Blob([scriptJS], { type: 'text/javascript' });
+
+// Create temporary download links for each file
+const indexLink = document.createElement('a');
+const stylesLink = document.createElement('a');
+const scriptLink = document.createElement('a');
+
+// Set the download attribute and file name for each link
+indexLink.download = 'generated-index.html';
+stylesLink.download = 'generated-styles.css';
+scriptLink.download = 'generated-script.js';
+
+// Set the href attribute for each link to the respective Blob URL
+indexLink.href = URL.createObjectURL(indexBlob);
+stylesLink.href = URL.createObjectURL(stylesBlob);
+scriptLink.href = URL.createObjectURL(scriptBlob);
+
+// Trigger the click event on each link to initiate the download
+indexLink.click();
+stylesLink.click();
+scriptLink.click();
+
+// Clean up the temporary links
+URL.revokeObjectURL(indexLink.href);
+URL.revokeObjectURL(stylesLink.href);
+URL.revokeObjectURL(scriptLink.href);
 }
 
 // Add event listener to the generate button
@@ -434,5 +626,3 @@ generateButton.addEventListener('click', generateVideoPlayer);
 
 // Update the preview initially
 updatePreview();
-
-
