@@ -8,183 +8,138 @@
 </head>
 <body>
   <div class="editor-container">
-    <h1>Humanry Story Editor</h1>
     <div class="editor-section">
-      <h2>Frame Attributes</h2>
-      <!-- Frame shape options -->
-      <label for="frame-shape">Frame Shape:</label>
-      <select id="frame-shape">
-        <option value="square">Square</option>
-        <option value="portrait">Portrait</option>
-        <option value="landscape">Landscape</option>
-      </select>
-      <!-- Frame border options -->
-      <label for="frame-border">Frame Border:</label>
-      <input type="checkbox" id="frame-border">
-      <label for="frame-border-color">Border Color:</label>
-      <input type="color" id="frame-border-color">
-      <label for="frame-border-weight">Border Weight (px):</label>
-      <input type="number" id="frame-border-weight" min="0" step="1">
-      <!-- Frame radius options -->
-      <label for="frame-radius">Border Radius (px):</label>
-      <input type="number" id="frame-radius" min="0" step="1">
+      <h1>Humanry Story Editor</h1>
+      <div class="editor-section">
+        <h2>Frame Attributes</h2>
+        <!-- Frame shape options -->
+        <label for="frame-shape">Frame Shape:</label>
+        <select id="frame-shape">
+          <option value="square">Square</option>
+          <option value="portrait">Portrait</option>
+          <option value="landscape">Landscape</option>
+        </select>
+        <!-- Frame border options -->
+        <label for="frame-border">Frame Border:</label>
+        <input type="checkbox" id="frame-border">
+        <label for="frame-border-color">Border Color:</label>
+        <input type="color" id="frame-border-color">
+        <label for="frame-border-weight">Border Weight (px):</label>
+        <input type="number" id="frame-border-weight" min="0" step="1">
+        <!-- Frame radius options -->
+        <label for="frame-radius">Border Radius (px):</label>
+        <input type="number" id="frame-radius" min="0" step="1">
+      </div>
+      <div class="editor-section">
+        <h2>Button Attributes</h2>
+        <!-- Button spacing options -->
+        <label for="button-spacing">Button Spacing (px):</label>
+        <input type="number" id="button-spacing" min="0" step="1">
+        <!-- Button stacking options -->
+        <label>Button Stacking:</label>
+        <input type="radio" id="button-stacking-horizontal" name="button-stacking" value="horizontal">
+        <label for="button-stacking-horizontal">Horizontal</label>
+        <input type="radio" id="button-stacking-vertical" name="button-stacking" value="vertical">
+        <label for="button-stacking-vertical">Vertical</label>
+        <!-- Button font options -->
+        <label for="button-font-style">Font Style:</label>
+        <select id="button-font-style">
+          <!-- Font options -->
+        </select>
+        <label for="button-font-color">Font Color:</label>
+        <input type="color" id="button-font-color">
+        <label for="button-font-size">Font Size (px):</label>
+        <input type="number" id="button-font-size" min="8" step="1">
+        <!-- Button size options -->
+        <label for="button-width">Button Width (px):</label>
+        <input type="number" id="button-width" min="0" step="1">
+        <label for="button-height">Button Height (px):</label>
+        <input type="number" id="button-height" min="0" step="1">
+        <!-- Button color options -->
+        <label for="button-color">Button Color:</label>
+        <input type="color" id="button-color">
+        <!-- Button location options -->
+        <label for="button-location">Button Location:</label>
+        <select id="button-location">
+          <option value="top-left">Top Left</option>
+          <option value="top-center">Top Center</option>
+          <option value="top-right">Top Right</option>
+          <option value="bottom-left">Bottom Left</option>
+          <option value="bottom-center">Bottom Center</option>
+          <option value="bottom-right">Bottom Right</option>
+        </select>
+        <!-- Button opacity options -->
+        <label for="button-opacity">Button Opacity (%):</label>
+        <input type="number" id="button-opacity" min="0" max="100" step="1">
+        <!-- Button border options -->
+        <label for="button-border">Button Border:</label>
+        <input type="checkbox" id="button-border">
+        <label for="button-border-color">Border Color:</label>
+        <input type="color" id="button-border-color">
+        <label for="button-border-weight">Border Weight (px):</label>
+        <input type="number" id="button-border-weight" min="0" step="1">
+        <!-- Button radius options -->
+        <label for="button-radius">Button Radius (px):</label>
+        <input type="number" id="button-radius" min="0" step="1">
+        <!-- Button text options -->
+        <label for="button1-text">Button 1 Text:</label>
+        <input type="text" id="button1-text">
+        <label for="button2-text">Button 2 Text:</label>
+        <input type="text" id="button2-text">
+        <label for="button3-text">Button 3 Text:</label>
+        <input type="text" id="button3-text">
+      </div>
+      <div class="editor-section">
+        <h2>Caption Attributes</h2>
+        <!-- Caption visibility options -->
+        <label for="caption-visibility">Captions:</label>
+        <input type="checkbox" id="caption-visibility">
+        <!-- Caption location options -->
+        <label for="caption-location">Caption Location:</label>
+        <select id="caption-location">
+          <option value="top">Top</option>
+          <option value="bottom">Bottom</option>
+          <option value="center">Center</option>
+        </select>
+        <!-- Caption font options -->
+        <label for="caption-font-style">Font Style:</label>
+        <select id="caption-font-style">
+          <!-- Font options -->
+        </select>
+        <label for="caption-font-color">Font Color:</label>
+        <input type="color" id="caption-font-color">
+        <label for="caption-font-size">Font Size (px):</label>
+        <input type="number" id="caption-font-size" min="8" step="1">
+        <!-- Caption opacity options -->
+        <label for="caption-opacity">Caption Opacity (%):</label>
+        <input type="number" id="caption-opacity" min="0" max="100" step="1">
+        <!-- Caption text wrapping options -->
+        <label for="caption-text-wrap">Text Wrapping:</label>
+        <select id="caption-text-wrap">
+          <option value="nowrap">No Wrap</option>
+          <option value="wrap">Wrap</option>
+          <option value="word-wrap">Word Wrap</option>
+        </select>
+      </div>
+      <div class="editor-section">
+        <h2>Loading Screen</h2>
+        <!-- Logo upload options -->
+        <label for="loading-logo-upload">Upload Logo:</label>
+        <input type="file" id="loading-logo-upload" accept="image/*">
+        <!-- Loading screen style options -->
+        <label for="loading-style">Loading Style:</label>
+        <select id="loading-style">
+          <option value="logo">Logo</option>
+          <option value="spinner">Spinner</option>
+          <option value="progress-bar">Progress Bar</option>
+        </select>
+        <!-- Small logo hyperlink options -->
+        <label for="small-logo-hyperlink">Small Logo Hyperlink:</label>
+        <input type="checkbox" id="small-logo-hyperlink">
+      </div>
+      <button id="generate-button">Generate</button>
     </div>
-    <div class="editor-section">
-      <h2>Button Attributes</h2>
-      <!-- Button spacing options -->
-      <label for="button-spacing">Button Spacing (px):</label>
-      <input type="number" id="button-spacing" min="0" step="1">
-      <!-- Button stacking options -->
-      <label>Button Stacking:</label>
-      <input type="radio" id="button-stacking-horizontal" name="button-stacking" value="horizontal">
-      <label for="button-stacking-horizontal">Horizontal</label>
-      <input type="radio" id="button-stacking-vertical" name="button-stacking" value="vertical">
-      <label for="button-stacking-vertical">Vertical</label>
-      <!-- Button font options -->
-      <label for="button-font-style">Font Style:</label>
-      <select id="button-font-style">
-        <option value="inherit">Inherit</option>
-        <option value="Arial, sans-serif">Arial</option>
-        <option value="'Helvetica Neue', Helvetica, Arial, sans-serif">Helvetica Neue</option>
-        <option value="'Times New Roman', Times, serif">Times New Roman</option>
-        <option value="Georgia, serif">Georgia</option>
-        <option value="Verdana, Geneva, sans-serif">Verdana</option>
-        <option value="'Courier New', Courier, monospace">Courier New</option>
-        <option value="'Brush Script MT', cursive">Brush Script MT</option>
-        <option value="'Lucida Sans Unicode', 'Lucida Grande', sans-serif">Lucida Sans Unicode</option>
-        <option value="'Trebuchet MS', Helvetica, sans-serif">Trebuchet MS</option>
-        <option value="'Arial Black', Gadget, sans-serif">Arial Black</option>
-        <option value="Impact, Charcoal, sans-serif">Impact</option>
-        <option value="'Comic Sans MS', cursive, sans-serif">Comic Sans MS</option>
-        <option value="'Lucida Console', Monaco, monospace">Lucida Console</option>
-        <option value="'Palatino Linotype', 'Book Antiqua', Palatino, serif">Palatino Linotype</option>
-        <option value="'Lucida Handwriting', cursive">Lucida Handwriting</option>
-        <option value="'Copperplate Gothic Light', fantasy">Copperplate Gothic Light</option>
-        <option value="'Papyrus', fantasy">Papyrus</option>
-        <option value="'Brush Script Std', cursive">Brush Script Std</option>
-        <option value="'Bodoni MT', 'Bodoni 72', 'Didot', 'Didot LT STD', 'Book Antiqua', Palatino, serif">Bodoni MT</option>
-        <option value="'Bookman Old Style', 'Bookman', 'Goudy Old Style', Garamond, 'Hoefler Text', 'Bitstream Charter', Georgia, serif">Bookman Old Style</option>
-        <option value="'Century Gothic', CenturyGothic, AppleGothic, sans-serif">Century Gothic</option>
-        <option value="'Bradley Hand', cursive">Bradley Hand</option>
-        <option value="'Calisto MT', 'Bookman Old Style', Bookman, 'Goudy Old Style', Garamond, 'Hoefler Text', 'Bitstream Charter', Georgia, serif">Calisto MT</option>
-        <option value="'Copperplate Gothic Bold', Copperplate, fantasy">Copperplate Gothic Bold</option>
-      </select>
-      <label for="button-font-color">Font Color:</label>
-      <input type="color" id="button-font-color">
-      <label for="button-font-size">Font Size (px):</label>
-      <input type="number" id="button-font-size" min="8" step="1">
-      <!-- Button size options -->
-      <label for="button-width">Button Width (px):</label>
-      <input type="number" id="button-width" min="0" step="1">
-      <label for="button-height">Button Height (px):</label>
-      <input type="number" id="button-height" min="0" step="1">
-      <!-- Button color options -->
-      <label for="button-color">Button Color:</label>
-      <input type="color" id="button-color">
-      <!-- Button location options -->
-      <label for="button-location">Button Location:</label>
-      <select id="button-location">
-        <option value="top-left">Top Left</option>
-        <option value="top-center">Top Center</option>
-        <option value="top-right">Top Right</option>
-        <option value="bottom-left">Bottom Left</option>
-        <option value="bottom-center">Bottom Center</option>
-        <option value="bottom-right">Bottom Right</option>
-      </select>
-      <!-- Button opacity options -->
-      <label for="button-opacity">Button Opacity (%):</label>
-      <input type="number" id="button-opacity" min="0" max="100" step="1">
-      <!-- Button border options -->
-      <label for="button-border">Button Border:</label>
-      <input type="checkbox" id="button-border">
-      <label for="button-border-color">Border Color:</label>
-      <input type="color" id="button-border-color">
-      <label for="button-border-weight">Border Weight (px):</label>
-      <input type="number" id="button-border-weight" min="0" step="1">
-      <!-- Button radius options -->
-      <label for="button-radius">Button Radius (px):</label>
-      <input type="number" id="button-radius" min="0" step="1">
-      <!-- Button text options -->
-      <label for="button1-text">Button 1 Text:</label>
-      <input type="text" id="button1-text">
-      <label for="button2-text">Button 2 Text:</label>
-      <input type="text" id="button2-text">
-      <label for="button3-text">Button 3 Text:</label>
-      <input type="text" id="button3-text">
-    </div>
-    <div class="editor-section">
-      <h2>Caption Attributes</h2>
-      <!-- Caption visibility options -->
-      <label for="caption-visibility">Captions:</label>
-      <input type="checkbox" id="caption-visibility">
-      <!-- Caption location options -->
-      <label for="caption-location">Caption Location:</label>
-      <select id="caption-location">
-        <option value="top">Top</option>
-        <option value="bottom">Bottom</option>
-        <option value="center">Center</option>
-      </select>
-      <!-- Caption font options -->
-      <label for="caption-font-style">Font Style:</label>
-      <select id="caption-font-style">
-        <option value="inherit">Inherit</option>
-        <option value="Arial, sans-serif">Arial</option>
-        <option value="'Helvetica Neue', Helvetica, Arial, sans-serif">Helvetica Neue</option>
-        <option value="'Times New Roman', Times, serif">Times New Roman</option>
-        <option value="Georgia, serif">Georgia</option>
-        <option value="Verdana, Geneva, sans-serif">Verdana</option>
-        <option value="'Courier New', Courier, monospace">Courier New</option>
-        <option value="'Brush Script MT', cursive">Brush Script MT</option>
-        <option value="'Lucida Sans Unicode', 'Lucida Grande', sans-serif">Lucida Sans Unicode</option>
-        <option value="'Trebuchet MS', Helvetica, sans-serif">Trebuchet MS</option>
-        <option value="'Arial Black', Gadget, sans-serif">Arial Black</option>
-        <option value="Impact, Charcoal, sans-serif">Impact</option>
-        <option value="'Comic Sans MS', cursive, sans-serif">Comic Sans MS</option>
-        <option value="'Lucida Console', Monaco, monospace">Lucida Console</option>
-        <option value="'Palatino Linotype', 'Book Antiqua', Palatino, serif">Palatino Linotype</option>
-        <option value="'Lucida Handwriting', cursive">Lucida Handwriting</option>
-        <option value="'Copperplate Gothic Light', fantasy">Copperplate Gothic Light</option>
-        <option value="'Papyrus', fantasy">Papyrus</option>
-        <option value="'Brush Script Std', cursive">Brush Script Std</option>
-        <option value="'Bodoni MT', 'Bodoni 72', 'Didot', 'Didot LT STD', 'Book Antiqua', Palatino, serif">Bodoni MT</option>
-        <option value="'Bookman Old Style', 'Bookman', 'Goudy Old Style', Garamond, 'Hoefler Text', 'Bitstream Charter', Georgia, serif">Bookman Old Style</option>
-        <option value="'Century Gothic', CenturyGothic, AppleGothic, sans-serif">Century Gothic</option>
-        <option value="'Bradley Hand', cursive">Bradley Hand</option>
-        <option value="'Calisto MT', 'Bookman Old Style', Bookman, 'Goudy Old Style', Garamond, 'Hoefler Text', 'Bitstream Charter', Georgia, serif">Calisto MT</option>
-        <option value="'Copperplate Gothic Bold', Copperplate, fantasy">Copperplate Gothic Bold</option>
-      </select>
-      <label for="caption-font-color">Font Color:</label>
-      <input type="color" id="caption-font-color">
-      <label for="caption-font-size">Font Size (px):</label>
-      <input type="number" id="caption-font-size" min="8" step="1">
-      <!-- Caption opacity options -->
-      <label for="caption-opacity">Caption Opacity (%):</label>
-      <input type="number" id="caption-opacity" min="0" max="100" step="1">
-      <!-- Caption text wrapping options -->
-      <label for="caption-text-wrap">Text Wrapping:</label>
-      <select id="caption-text-wrap">
-        <option value="nowrap">No Wrap</option>
-        <option value="wrap">Wrap</option>
-        <option value="word-wrap">Word Wrap</option>
-      </select>
-    </div>
-    <div class="editor-section">
-      <h2>Loading Screen</h2>
-      <!-- Logo upload options -->
-      <label for="loading-logo-upload">Upload Logo:</label>
-      <input type="file" id="loading-logo-upload" accept="image/*">
-      <!-- Loading screen style options -->
-      <label for="loading-style">Loading Style:</label>
-      <select id="loading-style">
-        <option value="logo">Logo</option>
-        <option value="spinner">Spinner</option>
-        <option value="progress-bar">Progress Bar</option>
-      </select>
-      <!-- Small logo hyperlink options -->
-      <label for="small-logo-hyperlink">Small Logo Hyperlink:</label>
-      <input type="checkbox" id="small-logo-hyperlink">
-    </div>
-    <div class="editor-section">
+    <div class="preview-container">
       <h2>Preview</h2>
       <div id="preview-container">
         <div class="video-container">
@@ -208,7 +163,6 @@
         </div>
       </div>
     </div>
-    <button id="generate-button">Generate</button>
   </div>
   <script src="editor-script.js"></script>
 </body>
