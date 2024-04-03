@@ -298,7 +298,7 @@ function generateVideoPlayer() {
   position: absolute;
   ${buttonLocation === 'top-left' ? 'top: 20px; left: 20px;' :
     buttonLocation === 'top-center' ? 'top: 20px; left: 50%; transform: translateX(-50%);' :
-buttonLocation === 'top-right' ? 'top: 20px; right: 20px;' :
+    buttonLocation === 'top-right' ? 'top: 20px; right: 20px;' :
 buttonLocation === 'bottom-left' ? 'bottom: 20px; left: 20px;' :
 buttonLocation === 'bottom-center' ? 'bottom: 20px; left: 50%; transform: translateX(-50%);' :
 'bottom: 20px; right: 20px;'}
@@ -476,7 +476,7 @@ video.src = videoSrc;
 video.muted = false;
 video.controls = false; // Remove the default video controls
 video.load();
-video.addEventListener('loadedmetadata', () => {
+ video.addEventListener('loadedmetadata', () => {
     resolve();
     if (shouldPlay) {
       video.play();
@@ -590,35 +590,13 @@ button.classList.remove('hidden');
 // Preload videos
 preloadVideos();`;
 
-// Create a Blob object for each generated file
-const indexBlob = new Blob([indexHTML], { type: 'text/html' });
-const stylesBlob = new Blob([stylesCSS], { type: 'text/css' });
-const scriptBlob = new Blob([scriptJS], { type: 'text/javascript' });
+// Save the generated files to localStorage
+localStorage.setItem('generated-index.html', indexHTML);
+localStorage.setItem('generated-styles.css', stylesCSS);
+localStorage.setItem('generated-script.js', scriptJS);
 
-// Create temporary download links for each file
-const indexLink = document.createElement('a');
-const stylesLink = document.createElement('a');
-const scriptLink = document.createElement('a');
-
-// Set the download attribute and file name for each link
-indexLink.download = 'generated-index.html';
-stylesLink.download = 'generated-styles.css';
-scriptLink.download = 'generated-script.js';
-
-// Set the href attribute for each link to the respective Blob URL
-indexLink.href = URL.createObjectURL(indexBlob);
-stylesLink.href = URL.createObjectURL(stylesBlob);
-scriptLink.href = URL.createObjectURL(scriptBlob);
-
-// Trigger the click event on each link to initiate the download
-indexLink.click();
-stylesLink.click();
-scriptLink.click();
-
-// Clean up the temporary links
-URL.revokeObjectURL(indexLink.href);
-URL.revokeObjectURL(stylesLink.href);
-URL.revokeObjectURL(scriptLink.href);
+// Display a success message or update the UI to indicate that the files are ready for download
+alert('The generated files are ready for download. You can find them in the browser's localStorage.');
 }
 
 // Add event listener to the generate button

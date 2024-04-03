@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Download Generated Files</title>
+</head>
+<body>
+  <h1>Download Generated Files</h1>
+  <button onclick="downloadFile('generated-index.html')">Download index.html</button>
+  <button onclick="downloadFile('generated-styles.css')">Download styles.css</button>
+  <button onclick="downloadFile('generated-script.js')">Download script.js</button>
+
+  <script>
+    function downloadFile(fileName) {
+      const fileContent = localStorage.getItem(fileName);
+      if (fileContent) {
+        const blob = new Blob([fileContent], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = fileName;
+        link.click();
+        URL.revokeObjectURL(url);
+      } else {
+        alert(`File "${fileName}" not found.`);
+      }
+    }
+  </script>
+</body>
+</html>
