@@ -596,7 +596,7 @@ localStorage.setItem('generated-styles.css', stylesCSS);
 localStorage.setItem('generated-script.js', scriptJS);
 
 // Display a success message or update the UI to indicate that the files are ready for download
-alert('The generated files are ready for download. You can find them in the browser's local storage.');
+alert('The generated files are ready for download. You can find them in the browser local storage.');
 }
 
 // Add event listener to the generate button
