@@ -113,12 +113,12 @@ function updatePreview() {
   const previewOverlayContainer = document.getElementById('preview-overlay-container');
   const previewCaptionContainer = document.getElementById('preview-caption-container');
 
+  previewContainer.className = frameShape;
   previewContainer.style.borderRadius = frameRadius + 'px';
   previewContainer.style.border = frameBorder ? `${frameBorderWeight}px solid ${frameBorderColor}` : 'none';
 
   previewOverlayContainer.style.flexDirection = buttonStacking === 'horizontal' ? 'row' : 'column';
-  previewOverlayContainer.style.justifyContent = buttonLocation.includes('center') ? 'center' : (buttonLocation.includes('right') ? 'flex-end' : 'flex-start');
-  previewOverlayContainer.style.alignItems = buttonLocation.includes('center') ? 'center' : (buttonLocation.includes('bottom') ? 'flex-end' : 'flex-start');
+  previewOverlayContainer.className = `overlay-container ${buttonLocation}`;
 
   previewCaptionContainer.style.display = captionVisibility ? 'block' : 'none';
   previewCaptionContainer.style.textAlign = captionLocation === 'center' ? 'center' : (captionLocation === 'right' ? 'right' : 'left');
@@ -133,6 +133,7 @@ function updatePreview() {
   buttonTexts.forEach((buttonText, index) => {
     const button = document.createElement('button');
     button.textContent = buttonText;
+    button.classList.add('overlay-button');
     button.style.margin = buttonSpacing + 'px';
     button.style.padding = `${buttonHeight / 2}px ${buttonWidth / 2}px`;
     button.style.fontSize = buttonFontSize + 'px';
