@@ -311,7 +311,7 @@ align-items: center;
 background-color: ${buttonColor};
 color: ${buttonFontColor};
 padding: ${buttonHeight / 2}px ${buttonWidth / 2}px;
-${buttonBorder ? border: ${buttonBorderWeight}px solid ${buttonBorderColor}; : ''}}
+${buttonBorder} ? border: ${buttonBorderWeight}px solid ${buttonBorderColor}; : ''}
 border-radius: ${buttonRadius}px;
 cursor: pointer;
 margin: ${buttonSpacing}px;
