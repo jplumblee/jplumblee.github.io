@@ -50,7 +50,7 @@ body {
 
 .overlay-container {
     position: absolute;
-    bottom: 60px;
+    bottom: 65px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -89,7 +89,7 @@ body {
     font-size: 20px;
     font-family: 'Archivo', sans-serif;
     text-align: center;
-    max-width: 80%;
+    max-width: 90%;
     white-space: pre-wrap;
     opacity: 0.8;
     transition: opacity 0.3s ease;
