@@ -1,44 +1,16 @@
 1
-00:00:00,719 --> 00:00:05,560
-hey Jonathan uh just a quick update I
+00:00:01,480 --> 00:00:06,560
+hi I'm Jeff Plumley and welcome to my
 
 2
-00:00:03,199 --> 00:00:08,040
-was having a hell of a time figuring out
+00:00:04,480 --> 00:00:09,040
+intro video this is what I'm working on
 
 3
-00:00:05,560 --> 00:00:10,360
-the Amazon interactive video service it
+00:00:06,560 --> 00:00:12,679
+in my free time so what would you like
 
 4
-00:00:08,040 --> 00:00:12,200
-seems like it's going to be a real pain
-
-5
-00:00:10,360 --> 00:00:13,880
-so I decided to take a shot at
-
-6
-00:00:12,200 --> 00:00:16,080
-programming some of this on my own and
-
-7
-00:00:13,880 --> 00:00:17,800
-see where it could go I've still got a
-
-8
-00:00:16,080 --> 00:00:19,560
-lot of work to do but I'm making some
-
-9
-00:00:17,800 --> 00:00:20,880
-progress so what do you want to learn
-
-10
-00:00:19,560 --> 00:00:23,880
-about
-
-11
-00:00:20,880 --> 00:00:23,880
-next
+00:00:09,040 --> 00:00:12,679
+to learn about next
 
