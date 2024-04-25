@@ -88,7 +88,8 @@ body {
     font-size: 20px;
     font-family: 'Archivo', sans-serif;
     text-align: left;
-    max-width: 95%;
+    width: 95%;
+    box-sizing: border-box;
     opacity: 0.8;
     transition: opacity 0.3s ease;
 }
