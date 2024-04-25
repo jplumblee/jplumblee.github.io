@@ -82,8 +82,8 @@ function loadVideo(videoSrc, srtSrc, shouldPlay) {
             // Reset the wipe transition
             setTimeout(() => {
                 wipe.style.height = '0';
-            }, 500); // Adjust the delay to match the transition duration in CSS
-        }, 500); // Adjust the delay to match the transition duration in CSS
+            }, 300); // Adjust the delay to match the transition duration in CSS
+        }, 300); // Adjust the delay to match the transition duration in CSS
     });
 }
 
