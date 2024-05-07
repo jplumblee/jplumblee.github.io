@@ -11,20 +11,19 @@
         <div class="input-section">
             <label for="video-source">Video Source:</label>
             <input type="text" id="video-source" value="intro.mp4">
-            <label for="button-text">Button Text:</label>
-            <input type="text" id="button-text" value="Learn More">
-            <label for="button-x">Button X Position:</label>
-            <input type="range" id="button-x" min="0" max="100" value="50">
-            <label for="button-y">Button Y Position:</label>
-            <input type="range" id="button-y" min="0" max="100" value="50">
+            <div id="buttons-container">
+                <h2>Buttons</h2>
+                <!-- Dynamically add button configurations here -->
+            </div>
+            <button onclick="addButtonConfig()">Add Button</button>
             <button onclick="updatePreview()">Update Preview</button>
         </div>
         <div class="preview-container">
             <video id="preview-video" width="640" height="360" controls>
-                <source src="intro.mp4" type="video/mp4">
+                <source src="movie.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
-            <div class="overlay-button" id="preview-button" style="left: 50%; top: 50%;">Learn More</div>
+            <!-- Button overlays are dynamically added here -->
         </div>
         <button id="generate-files">Generate Files</button>
     </div>

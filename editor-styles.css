@@ -15,12 +15,8 @@ body {
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
-.input-section {
+.input-section, .preview-container {
     margin-bottom: 20px;
-}
-
-.label {
-    margin-right: 10px;
 }
 
 .preview-container {
@@ -42,4 +38,8 @@ video {
     border-radius: 5px;
     cursor: pointer;
     transform: translate(-50%, -50%);
+}
+
+#buttons-container {
+    margin-top: 10px;
 }
