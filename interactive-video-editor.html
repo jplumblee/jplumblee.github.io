@@ -1,27 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Humanry Interactive Video Editor</title>
-    <link rel="stylesheet" href="editor-styles.css">
+    <title>Interactive Video Editor</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="editor-container">
-        <!-- Placeholder for editor controls -->
-        <label for="button-text">Button Text:</label>
-        <input type="text" id="button-text" class="editor-input" value="Click Me">
-        <button onclick="updatePreview()">Update Preview</button>
+        <h1>Interactive Video Editor</h1>
+        <div class="input-section">
+            <label for="video-source">Video Source:</label>
+            <input type="text" id="video-source" value="intro.mp4">
+            <label for="button-text">Button Text:</label>
+            <input type="text" id="button-text" value="Learn More">
+            <label for="button-x">Button X Position:</label>
+            <input type="range" id="button-x" min="0" max="100" value="50">
+            <label for="button-y">Button Y Position:</label>
+            <input type="range" id="button-y" min="0" max="100" value="50">
+            <button onclick="updatePreview()">Update Preview</button>
+        </div>
+        <div class="preview-container">
+            <video id="preview-video" width="640" height="360" controls>
+                <source src="intro.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="overlay-button" id="preview-button" style="left: 50%; top: 50%;">Learn More</div>
+        </div>
+        <button id="generate-files">Generate Files</button>
     </div>
-    <div class="preview-container">
-        <video id="preview-video" width="320" height="240" controls>
-            <source src="movie.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <button id="preview-button" class="button-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-            Click Me
-        </button>
-    </div>
-    <button id="generate-files">Generate Files</button>
-    <script src="editor-script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

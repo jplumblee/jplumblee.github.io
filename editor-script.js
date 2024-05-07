@@ -1,30 +1,30 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const generateButton = document.getElementById('generate-files');
-    generateButton.addEventListener('click', generateFiles);
-
-    // Updates the preview when input fields change
-    document.getElementById('button-text').addEventListener('input', function () {
-        updatePreview();
-    });
-});
+document.getElementById('generate-files').addEventListener('click', generateFiles);
+document.getElementById('video-source').addEventListener('change', updatePreview);
+document.getElementById('button-text').addEventListener('input', updateButton);
+document.getElementById('button-x').addEventListener('input', updateButton);
+document.getElementById('button-y').addEventListener('input', updateButton);
 
 function updatePreview() {
+    const videoSource = document.getElementById('video-source').value;
+    const videoElement = document.getElementById('preview-video');
+    videoElement.src = videoSource;
+    updateButton();
+}
+
+function updateButton() {
     const buttonText = document.getElementById('button-text').value;
-    const previewButton = document.getElementById('preview-button');
-    previewButton.textContent = buttonText;
+    const buttonX = document.getElementById('button-x').value;
+    const buttonY = document.getElementById('button-y').value;
+    const button = document.getElementById('preview-button');
+    button.textContent = buttonText;
+    button.style.left = `${buttonX}%`;
+    button.style.top = `${buttonY}%`;
 }
 
 function generateFiles() {
-    // Code to generate HTML, CSS, and JavaScript files based on the current configuration
-    alert('Generating files...');
-    console.log('Generating files...');
+    // Logic to generate and download the HTML, CSS, and JS files based on the current configuration
+    alert('Files are being generated...');
     // Implementation needed here
 }
 
-function setupEditor() {
-    // Initialization code for setting up the editor
-    console.log('Editor is being set up...');
-    updatePreview(); // Initial preview setup
-}
-
-setupEditor();
+window.onload = updatePreview;
