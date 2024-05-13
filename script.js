@@ -47,8 +47,8 @@ function loadVideo(videoId) {
         startSeconds: 0,
         suggestedQuality: 'high'
     });
-    // Ensure the object-fit style is reapplied
-    document.getElementById('main-video').style.objectFit = 'cover';
+    // Additional reset to maintain object-fit style
+    document.querySelector('.video-wrapper iframe').style.objectFit = 'cover';
 }
 
 // Function to create and add overlay buttons
