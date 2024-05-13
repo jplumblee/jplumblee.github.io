@@ -12,9 +12,12 @@ function onYouTubeIframeAPIReady() {
         width: '600',
         videoId: 'N2TGRTRZqLg', // Default video to load
         playerVars: {
-            'autoplay': 0,
+            'autoplay': 1,  // Autoplay on load
             'controls': 0,
-            'cc_load_policy': 1 // Closed captions load by default
+            'mute': 1,  // Start muted
+            'cc_load_policy': 1, // Closed captions load by default
+            'playsinline': 1, // Play inline on mobile devices
+            'enablejsapi': 1  // Enable API controls
         },
         events: {
             'onReady': onPlayerReady,
@@ -25,18 +28,26 @@ function onYouTubeIframeAPIReady() {
 
 // The API will call this function when the video player is ready.
 function onPlayerReady(event) {
-    event.target.mute(); // Mute the player initially, if needed
     createOverlayButtons(); // Create overlay buttons when the player is ready
+    event.target.playVideo(); // Play the video
     
     // Hide the loading screen
     const loadingScreen = document.querySelector('.loading-screen');
     loadingScreen.style.display = 'none';
+
+    // Click to unmute and restart video
+    const videoElement = document.getElementById('main-video');
+    videoElement.addEventListener('click', function() {
+        player.unMute();
+        player.seekTo(0);
+        player.playVideo();
+    });
 }
 
 // The API calls this function when the player's state changes.
 function onPlayerStateChange(event) {
     if (event.data == YT.PlayerState.ENDED) {
-        // You can add actions here for when the video ends.
+        // Actions for when the video ends
     }
 }
 
@@ -47,8 +58,7 @@ function loadVideo(videoId) {
         startSeconds: 0,
         suggestedQuality: 'high'
     });
-    // Additional reset to maintain object-fit style
-    document.querySelector('.video-wrapper iframe').style.objectFit = 'cover';
+    document.querySelector('.video-wrapper iframe').style.objectFit = 'cover'; // Reinforce object-fit
 }
 
 // Function to create and add overlay buttons
