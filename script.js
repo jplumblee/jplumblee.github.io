@@ -1,100 +1,214 @@
-// Load the IFrame Player API code asynchronously.
-var tag = document.createElement('script');
-tag.src = "https://www.youtube.com/iframe_api";
-var firstScriptTag = document.getElementsByTagName('script')[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+// Get references to the video element, video container, and loading screen
+const video = document.getElementById('main-video');
+const videoContainer = document.querySelector('.video-container');
+const overlayContainer = document.querySelector('.overlay-container');
+const captionContainer = document.createElement('div');
+captionContainer.classList.add('caption-container');
+videoContainer.appendChild(captionContainer);
+const loadingScreen = document.querySelector('.loading-screen');
+const wipe = document.getElementById('wipe');
 
-// This function creates an <iframe> (and YouTube player) after the API code downloads.
-var player;
-function onYouTubeIframeAPIReady() {
-    player = new YT.Player('main-video', {
-        height: '540',
-        width: '960',
-        videoId: 'N2TGRTRZqLg', // Default video to load
-        playerVars: {
-            'autoplay': 1,  // Autoplay on load
-            'controls': 0,
-            'mute': 1,  // Start muted
-            'cc_load_policy': 1, // Closed captions load by default
-            'playsinline': 1, // Play inline on mobile devices
-            'enablejsapi': 1  // Enable API controls
-        },
-        events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
+// Define an array of video sources and corresponding button labels
+const videoSources = [
+    { src: 'intro.mp4', label: 'Introduction' },
+    { src: 'option1.mp4', label: 'Simplicity', srt: 'option1captions.srt' },
+    { src: 'option2.mp4', label: 'Next Steps', srt: 'option2captions.srt' },
+    { src: 'option3.mp4', label: 'Big Picture', srt: 'option3captions.srt' }
+];
+
+// Variable to store the parsed captions
+let captions = [];
+
+// Function to create and add overlay buttons
+function createOverlayButtons() {
+    // Clear existing buttons
+    overlayContainer.innerHTML = '';
+
+    videoSources.forEach((source, index) => {
+        if (index !== 0) {
+            const button = document.createElement('button');
+            button.textContent = source.label;
+            button.classList.add('overlay-button');
+            button.setAttribute('data-video', source.src);
+            button.addEventListener('click', () => {
+                loadVideo(source.src, source.srt, true);
+            });
+            overlayContainer.appendChild(button);
         }
     });
 }
 
-// The API will call this function when the video player is ready.
-function onPlayerReady(event) {
-    createOverlayButtons(); // Create overlay buttons when the player is ready
-    event.target.playVideo(); // Ensure the video plays on load
-
-    // Hide the loading screen
-    const loadingScreen = document.querySelector('.loading-screen');
-    loadingScreen.style.display = 'none';
-
-    // Setup click to unmute and restart video for the first video only
-    const iframe = document.getElementById('main-video');
-    iframe.addEventListener('click', function() {
-        player.unMute();
-        player.seekTo(0);
+// Function to preload videos
+function preloadVideos() {
+    videoSources.forEach((source, index) => {
+        if (index !== 0) {
+            const preloadVideo = document.createElement('video');
+            preloadVideo.setAttribute('src', source.src);
+            preloadVideo.setAttribute('preload', 'auto');
+            preloadVideo.style.display = 'none';
+            document.body.appendChild(preloadVideo);
+        }
     });
 }
 
-// The API calls this function when the player's state changes.
-function onPlayerStateChange(event) {
-    if (event.data == YT.PlayerState.ENDED) {
-        // Actions for when the video ends
-    }
-}
+// Function to load the video and captions
+function loadVideo(videoSrc, srtSrc, shouldPlay) {
+    return new Promise((resolve) => {
+        // Animate the wipe transition
+        wipe.style.height = '100%';
+        setTimeout(() => {
+            video.src = videoSrc;
+            video.muted = false;
+            video.controls = false; // Remove the default video controls
 
-// Function to load a new video based on the button clicked
-function loadVideo(videoId) {
-    player.loadVideoById({
-        videoId: videoId,
-        startSeconds: 0,
-        suggestedQuality: 'high'
-    });
-    // Additional reset to maintain object-fit style
-    document.querySelector('.video-wrapper iframe').style.objectFit = 'cover'; // Reinforce object-fit
-}
+            if (srtSrc) {
+                fetch(// Get references to the video element and video container
+const video = document.getElementById('main-video');
+const videoContainer = document.querySelector('.video-container');
+const overlayContainer = document.querySelector('.overlay-container');
+const captionContainer = document.createElement('div');
+captionContainer.classList.add('caption-container');
+videoContainer.appendChild(captionContainer);
+
+// Define an array of video sources and corresponding button labels
+const videoSources = [
+    { src: 'intro.mp4', label: 'Introduction', srt: 'introcaptions.srt' },
+    { src: 'option1.mp4', label: 'Option 1', srt: 'option1captions.srt' },
+    { src: 'option2.mp4', label: 'Option 2', srt: 'option2captions.srt' },
+    { src: 'option3.mp4', label: 'Option 3', srt: 'option3captions.srt' }
+];
+
+// Variable to store the parsed captions
+let captions = [];
+
+// Variable to track if the initial video has been unmuted
+let isInitialVideoUnmuted = false;
 
 // Function to create and add overlay buttons
 function createOverlayButtons() {
-    const overlayContainer = document.querySelector('.overlay-container');
-    overlayContainer.innerHTML = ''; // Clear existing buttons
+    // Clear existing buttons
+    overlayContainer.innerHTML = '';
 
-    const currentVideoId = player.getVideoData().video_id;
-    const videoSources = {
-        'N2TGRTRZqLg': [
-            { id: '-50w4vyIkig', label: 'The Difference Matters' },
-            { id: 'RRN9j5OkJ20', label: "You've Got Support" },
-            { id: 'oUhr0ri-57c', label: 'Sandra Dee Freebies' }
-        ],
-        '-50w4vyIkig': [
-            { id: 'RRN9j5OkJ20', label: "You've Got Support" },
-            { id: 'oUhr0ri-57c', label: 'Sandra Dee Freebies' }
-        ],
-        'RRN9j5OkJ20': [
-            { id: '-50w4vyIkig', label: 'The Difference Matters' },
-            { id: 'oUhr0ri-57c', label: 'Sandra Dee Freebies' }
-        ],
-        'oUhr0ri-57c': [
-            { id: '-50w4vyIkig', label: 'The Difference Matters' },
-            { id: 'RRN9j5OkJ20', label: "You've Got Support" }
-        ]
-    };
-
-    const sources = videoSources[currentVideoId] || []; // Get buttons relevant to the current video
-    sources.forEach((source) => {
-        const button = document.createElement('button');
-        button.textContent = source.label;
-        button.classList.add('overlay-button');
-        button.addEventListener('click', () => {
-            loadVideo(source.id);
-        });
-        overlayContainer.appendChild(button);
+    videoSources.forEach((source, index) => {
+        if (index !== 0) {
+            const button = document.createElement('button');
+            button.textContent = source.label;
+            button.classList.add('overlay-button');
+            button.setAttribute('data-video', source.src);
+            button.addEventListener('click', () => {
+                loadVideo(source.src, source.srt, true);
+            });
+            overlayContainer.appendChild(button);
+        }
     });
 }
+
+// Function to load the video and captions
+function loadVideo(videoSrc, srtSrc, shouldPlay) {
+    return new Promise((resolve) => {
+        video.src = videoSrc;
+        video.muted = false;
+        video.controls = false; // Remove the default video controls
+        video.load();
+
+        video.addEventListener('loadedmetadata', () => {
+            resolve();
+            if (shouldPlay) {
+                video.play();
+            }
+            // Load the captions
+            fetch(srtSrc)
+                .then(response => response.text())
+                .then(data => {
+                    captions = parseSRT(data);
+                    displayCaptions(); // Display captions immediately after loading
+                });
+        });
+    });
+}
+
+// Function to parse the SRT file
+function parseSRT(srtText) {
+    const subtitles = [];
+    const lines = srtText.trim().split('\n');
+
+    for (let i = 0; i < lines.length; i++) {
+        if (!isNaN(parseInt(lines[i]))) {
+            const subtitle = {};
+            subtitle.index = parseInt(lines[i]);
+            const [start, end] = lines[++i].split(' --> ');
+            subtitle.start = parseTimestamp(start);
+            subtitle.end = parseTimestamp(end);
+            subtitle.text = lines[++i];
+            subtitles.push(subtitle);
+            i++;
+        }
+    }
+
+    return subtitles;
+}
+
+// Function to parse the timestamp
+function parseTimestamp(timestamp) {
+    const [hours, minutes, seconds] = timestamp.split(':');
+    return parseInt(hours) * 3600 + parseInt(minutes) * 60 + parseFloat(seconds.replace(',', '.'));
+}
+
+// Function to display the captions
+function displayCaptions() {
+    const currentTime = video.currentTime;
+    const currentCaption = captions.find(caption => currentTime >= caption.start && currentTime <= caption.end);
+
+    if (currentCaption) {
+        captionContainer.textContent = currentCaption.text;
+        captionContainer.style.display = 'block'; // Show the caption container
+    } else {
+        captionContainer.textContent = '';
+        captionContainer.style.display = 'none'; // Hide the caption container
+    }
+}
+
+// Function to handle video container click
+function handleVideoContainerClick() {
+    if (video.muted) {
+        video.muted = false;
+        isInitialVideoUnmuted = true;
+    } else {
+        if (video.paused) {
+            video.play();
+        } else {
+            video.pause();
+        }
+    }
+}
+
+// Function to load the initial video
+async function loadInitialVideo() {
+    await loadVideo(videoSources[0].src, videoSources[0].srt, false);
+    video.muted = true;
+    video.play();
+    createOverlayButtons(); // Create buttons for the intro video
+}
+
+// Load the initial video
+loadInitialVideo();
+
+// Add click event listener to the video container
+videoContainer.addEventListener('click', handleVideoContainerClick);
+
+// Update captions every 100ms
+setInterval(displayCaptions, 100);
+
+// Show/hide buttons based on the currently playing video
+video.addEventListener('loadedmetadata', () => {
+    const currentVideoSrc = video.getAttribute('src');
+    const buttons = overlayContainer.querySelectorAll('.overlay-button');
+    buttons.forEach(button => {
+        const buttonVideoSrc = button.getAttribute('data-video');
+        if (buttonVideoSrc === currentVideoSrc) {
+            button.classList.add('hidden');
+        } else {
+            button.classList.remove('hidden');
+        }
+    });
+});

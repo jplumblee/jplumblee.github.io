@@ -1,28 +1,96 @@
 1
-00:00:01,520 --> 00:00:05,920
-and this isn't a complete solution we
+00:00:00,280 --> 00:00:04,440
+so I'm not sure that this is a complete
 
 2
-00:00:04,279 --> 00:00:08,639
-would definitely need a coder to come in
+00:00:01,920 --> 00:00:06,200
+solution I'm pretty confident it's not
 
 3
-00:00:05,920 --> 00:00:10,160
-and clean this up and optimize things
+00:00:04,440 --> 00:00:08,280
+but I do see a lot of potential for the
 
 4
-00:00:08,639 --> 00:00:12,639
-but I am hoping to continue to make
+00:00:06,200 --> 00:00:10,759
+future if we were to take this in our
 
 5
-00:00:10,160 --> 00:00:14,799
-refinements on this in my down time and
+00:00:08,280 --> 00:00:12,360
+own Direction I think uh Amazon's
 
 6
-00:00:12,639 --> 00:00:18,360
-see where it goes what do you want to
+00:00:10,759 --> 00:00:14,839
+interactive video service has a lot of
 
 7
-00:00:14,799 --> 00:00:18,360
-learn about next
+00:00:12,360 --> 00:00:17,600
+challenges with it it's really designed
+
+8
+00:00:14,839 --> 00:00:21,039
+for live streaming and what we would
+
+9
+00:00:17,600 --> 00:00:23,000
+actually have to do is uh push our
+
+10
+00:00:21,039 --> 00:00:26,000
+pre-recorded videos in through a live
+
+11
+00:00:23,000 --> 00:00:29,599
+streaming service to have them record on
+
+12
+00:00:26,000 --> 00:00:31,279
+the IVs site total pain uh where I'm
+
+13
+00:00:29,599 --> 00:00:35,160
+hoping we can be able to go with this
+
+14
+00:00:31,279 --> 00:00:38,079
+eventually is uh setting up a guey to
+
+15
+00:00:35,160 --> 00:00:39,879
+easily edit the different components of
+
+16
+00:00:38,079 --> 00:00:41,879
+the video the buttons that kind of thing
+
+17
+00:00:39,879 --> 00:00:44,800
+without uh having to deal with the
+
+18
+00:00:41,879 --> 00:00:47,320
+coding and I also see the potential down
+
+19
+00:00:44,800 --> 00:00:50,160
+the road for us to be able to create
+
+20
+00:00:47,320 --> 00:00:53,160
+Dynamic buttons uh based on where the
+
+21
+00:00:50,160 --> 00:00:55,160
+user is coming from or uh other
+
+22
+00:00:53,160 --> 00:00:58,039
+variables that we might be able to
+
+23
+00:00:55,160 --> 00:01:01,039
+capture uh so that's
+
+24
+00:00:58,039 --> 00:01:01,039
+it
 

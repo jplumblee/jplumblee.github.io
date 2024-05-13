@@ -1,28 +1,88 @@
 1
-00:00:00,719 --> 00:00:04,440
-moving forward I'm going to be working
+00:00:01,240 --> 00:00:06,720
+there's still a lot to do to get this in
 
 2
-00:00:02,200 --> 00:00:07,240
-on a user interface for making this more
+00:00:03,639 --> 00:00:08,040
+any sort of publishable shape uh some of
 
 3
-00:00:04,440 --> 00:00:10,000
-functional for us and our future
+00:00:06,720 --> 00:00:09,760
+the next things that I'm going to be
 
 4
-00:00:07,240 --> 00:00:13,000
-employees with different easily editable
+00:00:08,040 --> 00:00:11,679
+working on which may be done by the time
 
 5
-00:00:10,000 --> 00:00:13,000
-options for our
+00:00:09,760 --> 00:00:14,360
+I share this with you I've still got to
 
 6
-00:00:13,080 --> 00:00:18,000
-clients what do you want to learn about
+00:00:11,679 --> 00:00:17,080
+handle how to deal with captions whether
 
 7
-00:00:15,000 --> 00:00:18,000
+00:00:14,360 --> 00:00:19,119
+that's timed meta tags or or how that's
+
+8
+00:00:17,080 --> 00:00:21,880
+set up I've got to edit the video
+
+9
+00:00:19,119 --> 00:00:25,080
+Dimensions I've got to get it working on
+
+10
+00:00:21,880 --> 00:00:27,560
+mobile as well as um desktop desktop
+
+11
+00:00:25,080 --> 00:00:29,160
+looks to be fine right now uh I've got
+
+12
+00:00:27,560 --> 00:00:30,519
+to make the buttons vertical and fix
+
+13
+00:00:29,160 --> 00:00:32,399
+where they're at
+
+14
+00:00:30,519 --> 00:00:34,680
+got to remove the play toolbar at the
+
+15
+00:00:32,399 --> 00:00:37,160
+bottom where it starts I'm going to
+
+16
+00:00:34,680 --> 00:00:39,559
+change the transparency of the buttons
+
+17
+00:00:37,160 --> 00:00:42,039
+add some sort of humany logo add a
+
+18
+00:00:39,559 --> 00:00:43,680
+loading screen and probably some other
+
+19
+00:00:42,039 --> 00:00:46,559
+things I can't think of right off the
+
+20
+00:00:43,680 --> 00:00:48,480
+top of my head and what do you want to
+
+21
+00:00:46,559 --> 00:00:51,480
+learn about
+
+22
+00:00:48,480 --> 00:00:51,480
 next
 
