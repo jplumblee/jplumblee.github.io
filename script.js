@@ -29,17 +29,17 @@ function onYouTubeIframeAPIReady() {
 // The API will call this function when the video player is ready.
 function onPlayerReady(event) {
     createOverlayButtons(); // Create overlay buttons when the player is ready
-
+    event.target.playVideo(); // Ensure the video plays on load
+    
     // Hide the loading screen
     const loadingScreen = document.querySelector('.loading-screen');
     loadingScreen.style.display = 'none';
 
     // Setup click to unmute and restart video for the first video only
-    player.addEventListener('click', function() {
-        if (player.getPlayerState() === YT.PlayerState.PLAYING && player.getVideoData().video_id === 'N2TGRTRZqLg') {
-            player.unMute();
-            player.seekTo(0);
-        }
+    const iframe = document.getElementById('main-video');
+    iframe.addEventListener('click', function() {
+        player.unMute();
+        player.seekTo(0);
     });
 }
 
@@ -66,6 +66,7 @@ function createOverlayButtons() {
     const overlayContainer = document.querySelector('.overlay-container');
     overlayContainer.innerHTML = ''; // Clear existing buttons
 
+    const currentVideoId = player.getVideoData().video_id;
     const videoSources = {
         'N2TGRTRZqLg': [
             { id: '-50w4vyIkig', label: 'The Difference Matters' },
@@ -86,10 +87,8 @@ function createOverlayButtons() {
         ]
     };
 
-    const currentVideoId = player.getVideoData().video_id;
-    const sources = videoSources[currentVideoId];
-
-    sources.forEach((source, index) => {
+    const sources = videoSources[currentVideoId] || [];
+    sources.forEach((source) => {
         const button = document.createElement('button');
         button.textContent = source.label;
         button.classList.add('overlay-button');
