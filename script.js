@@ -27,6 +27,10 @@ function onYouTubeIframeAPIReady() {
 function onPlayerReady(event) {
     event.target.mute(); // Mute the player initially, if needed
     createOverlayButtons(); // Create overlay buttons when the player is ready
+    
+    // Hide the loading screen
+    const loadingScreen = document.querySelector('.loading-screen');
+    loadingScreen.style.display = 'none';
 }
 
 // The API calls this function when the player's state changes.
@@ -67,4 +71,3 @@ function createOverlayButtons() {
         overlayContainer.appendChild(button);
     });
 }
-
