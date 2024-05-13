@@ -8,8 +8,8 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 var player;
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('main-video', {
-        height: '600',
-        width: '600',
+        height: '540',
+        width: '960',
         videoId: 'N2TGRTRZqLg', // Default video to load
         playerVars: {
             'autoplay': 1,  // Autoplay on load
@@ -29,18 +29,17 @@ function onYouTubeIframeAPIReady() {
 // The API will call this function when the video player is ready.
 function onPlayerReady(event) {
     createOverlayButtons(); // Create overlay buttons when the player is ready
-    event.target.playVideo(); // Play the video
     
     // Hide the loading screen
     const loadingScreen = document.querySelector('.loading-screen');
     loadingScreen.style.display = 'none';
 
-    // Click to unmute and restart video
-    const videoElement = document.getElementById('main-video');
-    videoElement.addEventListener('click', function() {
-        player.unMute();
-        player.seekTo(0);
-        player.playVideo();
+    // Setup click to unmute and restart video for the first video only
+    player.addEventListener('click', function() {
+        if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+            player.unMute();
+            player.seekTo(0);
+        }
     });
 }
 
@@ -58,6 +57,7 @@ function loadVideo(videoId) {
         startSeconds: 0,
         suggestedQuality: 'high'
     });
+    // Additional reset to maintain object-fit style
     document.querySelector('.video-wrapper iframe').style.objectFit = 'cover'; // Reinforce object-fit
 }
 
