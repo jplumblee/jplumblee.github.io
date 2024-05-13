@@ -2,22 +2,18 @@
 const video = document.getElementById('main-video');
 const videoContainer = document.querySelector('.video-container');
 const overlayContainer = document.querySelector('.overlay-container');
-const captionContainer = document.createElement('div');
-captionContainer.classList.add('caption-container');
-videoContainer.appendChild(captionContainer);
 const loadingScreen = document.querySelector('.loading-screen');
 const wipe = document.getElementById('wipe');
 
 // Define an array of video sources and corresponding button labels
 const videoSources = [
-    { src: 'intro.mp4', label: 'Introduction', srt: 'introcaptions.srt' },
-    { src: 'option1.mp4', label: 'Simplicity', srt: 'option1captions.srt' },
-    { src: 'option2.mp4', label: 'Next Steps', srt: 'option2captions.srt' },
-    { src: 'option3.mp4', label: 'Big Picture', srt: 'option3captions.srt' }
+    { src: 'https://youtu.be/N2TGRTRZqLg?cc_load_policy=1', label: 'Introduction' },
+    { src: 'https://youtu.be/-50w4vyIkig?cc_load_policy=1', label: 'The Difference Matters' },
+    { src: 'https://youtu.be/RRN9j5OkJ20?cc_load_policy=1', label: 'You've Got Support' },
+    { src: 'https://youtu.be/oUhr0ri-57c?cc_load_policy=1', label: 'Sandra Dee Freebies' }
 ];
 
 // Variable to store the parsed captions
-let captions = [];
 
 // Variable to track if the initial video has been unmuted
 let isInitialVideoUnmuted = false;
@@ -71,12 +67,7 @@ function loadVideo(videoSrc, srtSrc, shouldPlay) {
                     video.play();
                 }
                 // Load the captions
-                fetch(srtSrc)
-                    .then(response => response.text())
-                    .then(data => {
-                        captions = parseSRT(data);
-                        displayCaptions(); // Display captions immediately after loading
-                    });
+                
             });
 
             // Reset the wipe transition
@@ -115,18 +106,6 @@ function parseTimestamp(timestamp) {
 }
 
 // Function to display the captions
-function displayCaptions() {
-    const currentTime = video.currentTime;
-    const currentCaption = captions.find(caption => currentTime >= caption.start && currentTime <= caption.end);
-
-    if (currentCaption) {
-        captionContainer.textContent = currentCaption.text;
-        captionContainer.style.display = 'block'; // Show the caption container
-    } else {
-        captionContainer.textContent = '';
-        captionContainer.style.display = 'none'; // Hide the caption container
-    }
-}
 
 // Function to handle video container click
 function handleVideoContainerClick() {
@@ -160,7 +139,6 @@ loadInitialVideo();
 videoContainer.addEventListener('click', handleVideoContainerClick);
 
 // Update captions every 100ms
-setInterval(displayCaptions, 100);
 
 // Show/hide buttons based on the currently playing video
 video.addEventListener('loadedmetadata', () => {
