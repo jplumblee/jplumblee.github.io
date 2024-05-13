@@ -5,6 +5,12 @@
     overflow: hidden; /* Ensures no overflow content is visible */
 }
 
+.video-wrapper {
+    position: relative;
+    width: 100%; /* Ensures the video wrapper fills its container */
+    height: 100%; /* Ensures the video wrapper fills its container */
+}
+
 .video-wrapper iframe {
     width: 100%;
     height: 100%;
@@ -21,11 +27,13 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    pointer-events: none; /* Allows clicks to pass through to video */
 }
 
 .overlay-button {
+    pointer-events: auto; /* Enables clicks on buttons */
     padding: 10px 20px;
-    margin: 10px;
+    margin: 5px; /* Provides spacing between buttons */
     background-color: #fff;
     border: none;
     border-radius: 5px;
@@ -58,7 +66,7 @@
 .loading-logo {
     width: 50px;
     height: 50px;
-    background-image: url('loading.gif'); /* Assuming a loading GIF is used */
+    background-image: url('loading.gif'); /* Placeholder or correct the path to your actual loading gif */
     background-size: cover;
     animation: spin 2s linear infinite;
 }
@@ -75,7 +83,7 @@
     right: 10px;
     width: 100px; /* Set the width of the logo */
     height: 50px; /* Set the height of the logo */
-    background-image: url('logo.png'); /* Assuming a logo is used */
+    background-image: url('logo.png'); /* Placeholder or correct the path to your actual logo image */
     background-size: cover;
 }
 
