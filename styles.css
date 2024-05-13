@@ -26,28 +26,27 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
     pointer-events: none; /* Allows clicks to pass through to video */
 }
 
 .overlay-button {
     pointer-events: auto; /* Enables clicks on buttons */
     padding: 10px 20px;
-    margin: 5px; /* Provides spacing between buttons */
-    background-color: #fff;
-    border: none;
+    margin: 10px;
+    background-color: #fff; /* White background */
+    border: 1px solid #ccc; /* Light grey border */
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    color: #333;
+    color: #333; /* Dark grey text */
     text-transform: uppercase;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     transition: background-color 0.3s, color 0.3s;
 }
 
 .overlay-button:hover {
-    background-color: #007BFF;
-    color: #fff;
+    background-color: #e7e7e7; /* Light grey on hover */
+    color: #333; /* Maintain dark grey text on hover */
 }
 
 .loading-screen {
@@ -66,7 +65,7 @@
 .loading-logo {
     width: 50px;
     height: 50px;
-    background-image: url('loading.gif'); /* Placeholder or correct the path to your actual loading gif */
+    background-image: url('loading.gif'); /* Ensure this path is correct */
     background-size: cover;
     animation: spin 2s linear infinite;
 }
@@ -81,9 +80,9 @@
     position: absolute;
     top: 10px;
     right: 10px;
-    width: 100px; /* Set the width of the logo */
-    height: 50px; /* Set the height of the logo */
-    background-image: url('logo.png'); /* Placeholder or correct the path to your actual logo image */
+    width: 100px;
+    height: 50px;
+    background-image: url('logo.png'); /* Ensure this path is correct */
     background-size: cover;
 }
 

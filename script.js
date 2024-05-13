@@ -47,6 +47,8 @@ function loadVideo(videoId) {
         startSeconds: 0,
         suggestedQuality: 'high'
     });
+    // Ensure the object-fit style is reapplied
+    document.getElementById('main-video').style.objectFit = 'cover';
 }
 
 // Function to create and add overlay buttons
@@ -55,7 +57,6 @@ function createOverlayButtons() {
     overlayContainer.innerHTML = ''; // Clear existing buttons
 
     const videoSources = [
-        // { id: 'N2TGRTRZqLg', label: 'Introduction' }, // This line is commented out to remove the button
         { id: '-50w4vyIkig', label: 'The Difference Matters' },
         { id: 'RRN9j5OkJ20', label: "You've Got Support" },
         { id: 'oUhr0ri-57c', label: 'Sandra Dee Freebies' }
