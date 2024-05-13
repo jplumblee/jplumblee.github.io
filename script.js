@@ -30,7 +30,7 @@ function onYouTubeIframeAPIReady() {
 function onPlayerReady(event) {
     createOverlayButtons(); // Create overlay buttons when the player is ready
     event.target.playVideo(); // Ensure the video plays on load
-    
+
     // Hide the loading screen
     const loadingScreen = document.querySelector('.loading-screen');
     loadingScreen.style.display = 'none';
@@ -87,7 +87,7 @@ function createOverlayButtons() {
         ]
     };
 
-    const sources = videoSources[currentVideoId] || [];
+    const sources = videoSources[currentVideoId] || []; // Get buttons relevant to the current video
     sources.forEach((source) => {
         const button = document.createElement('button');
         button.textContent = source.label;
