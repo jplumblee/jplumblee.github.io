@@ -55,10 +55,10 @@ function createOverlayButtons() {
     overlayContainer.innerHTML = ''; // Clear existing buttons
 
     const videoSources = [
-        { id: 'N2TGRTRZqLg', label: 'Introduction' },
-        { id: '-50w4vyIkig', label: 'The Difference Matters' },
-        { id: 'RRN9j5OkJ20', label: 'You've Got Support' },
-        { id: 'oUhr0ri-57c', label: 'Sandra Dee Freebies' }
+        { id: 'N2TGRTRZqLg', label: "Introduction" },
+        { id: '-50w4vyIkig', label: "The Difference Matters" },
+        { id: 'RRN9j5OkJ20', label: "You've Got Support" },
+        { id: 'oUhr0ri-57c', label: "Sandra Dee Freebies" }
     ];
 
     videoSources.forEach((source, index) => {
