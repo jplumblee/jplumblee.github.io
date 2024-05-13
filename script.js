@@ -7,10 +7,10 @@ const wipe = document.getElementById('wipe');
 
 // Define an array of video sources and corresponding button labels
 const videoSources = [
-    { src: 'https://youtu.be/N2TGRTRZqLg?cc_load_policy=1', label: 'Introduction' },
-    { src: 'https://youtu.be/-50w4vyIkig?cc_load_policy=1', label: 'The Difference Matters' },
-    { src: 'https://youtu.be/RRN9j5OkJ20?cc_load_policy=1', label: 'You've Got Support' },
-    { src: 'https://youtu.be/oUhr0ri-57c?cc_load_policy=1', label: 'Sandra Dee Freebies' }
+    { src: 'https://youtu.be/N2TGRTRZqLg', label: 'Introduction' },
+    { src: 'https://youtu.be/-50w4vyIkig', label: 'The Difference Matters' },
+    { src: 'https://youtu.be/RRN9j5OkJ20', label: 'You've Got Support' },
+    { src: 'https://youtu.be/oUhr0ri-57c', label: 'Sandra Dee Freebies' }
 ];
 
 // Variable to store the parsed captions
