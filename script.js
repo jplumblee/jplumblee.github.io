@@ -29,14 +29,14 @@ function onYouTubeIframeAPIReady() {
 // The API will call this function when the video player is ready.
 function onPlayerReady(event) {
     createOverlayButtons(); // Create overlay buttons when the player is ready
-    
+
     // Hide the loading screen
     const loadingScreen = document.querySelector('.loading-screen');
     loadingScreen.style.display = 'none';
 
     // Setup click to unmute and restart video for the first video only
     player.addEventListener('click', function() {
-        if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+        if (player.getPlayerState() === YT.PlayerState.PLAYING && player.getVideoData().video_id === 'N2TGRTRZqLg') {
             player.unMute();
             player.seekTo(0);
         }
@@ -66,13 +66,30 @@ function createOverlayButtons() {
     const overlayContainer = document.querySelector('.overlay-container');
     overlayContainer.innerHTML = ''; // Clear existing buttons
 
-    const videoSources = [
-        { id: '-50w4vyIkig', label: 'The Difference Matters' },
-        { id: 'RRN9j5OkJ20', label: "You've Got Support" },
-        { id: 'oUhr0ri-57c', label: 'Sandra Dee Freebies' }
-    ];
+    const videoSources = {
+        'N2TGRTRZqLg': [
+            { id: '-50w4vyIkig', label: 'The Difference Matters' },
+            { id: 'RRN9j5OkJ20', label: "You've Got Support" },
+            { id: 'oUhr0ri-57c', label: 'Sandra Dee Freebies' }
+        ],
+        '-50w4vyIkig': [
+            { id: 'RRN9j5OkJ20', label: "You've Got Support" },
+            { id: 'oUhr0ri-57c', label: 'Sandra Dee Freebies' }
+        ],
+        'RRN9j5OkJ20': [
+            { id: '-50w4vyIkig', label: 'The Difference Matters' },
+            { id: 'oUhr0ri-57c', label: 'Sandra Dee Freebies' }
+        ],
+        'oUhr0ri-57c': [
+            { id: '-50w4vyIkig', label: 'The Difference Matters' },
+            { id: 'RRN9j5OkJ20', label: "You've Got Support" }
+        ]
+    };
 
-    videoSources.forEach((source, index) => {
+    const currentVideoId = player.getVideoData().video_id;
+    const sources = videoSources[currentVideoId];
+
+    sources.forEach((source, index) => {
         const button = document.createElement('button');
         button.textContent = source.label;
         button.classList.add('overlay-button');
